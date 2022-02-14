@@ -3,7 +3,7 @@ export const settingsMenuMixin = {
         return {
             menuList: [
                 {
-                    label: "Settings",
+                    label: "Configurações",
                     icon: "cog",
                     link: "settings",
                     linkType: "route",
@@ -11,7 +11,7 @@ export const settingsMenuMixin = {
                     activeKey: ["settings-user"],
                 },
                 {
-                    label: "Users",
+                    label: "Usuários",
                     icon: "",
                     link: "settings-user.index",
                     linkType: "route",

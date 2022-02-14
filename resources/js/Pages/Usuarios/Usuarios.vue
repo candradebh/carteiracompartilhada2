@@ -2,11 +2,11 @@
     <app-layout>
         <!--Header-->
         <template #header>
-            Tabelas
+            Usuários
         </template>
         <!--Subheader-->
         <template #subHeader>
-            Personalise suas tabelas
+            Personalise sua tabela
         </template>
         <!--Content-->
         <template #default>
@@ -36,13 +36,11 @@
                         <t-avatar :link="props.photo" :radius="8" :size="3"/>
                 </template>
             </t-table>
-            <!--Sample Codes-->
-            <ssh-pre :copy-button="true" label="Code" language="html">{{ sampleCode.html }}</ssh-pre>
-            <ssh-pre :copy-button="true" label="JS" language="js">{{ sampleCode.js }}</ssh-pre>
+
             <!--Variables Table-->
             <t-table
-                :content="sampleCode.table.content"
-                :header="sampleCode.table.header"
+                :content="table.content"
+                :header="table.header"
                 :searchable="['variable','details']"
                 class="mt-5"
                 color="solid-blue">
@@ -69,7 +67,7 @@ import TUserCircleIcon from "@/Components/Icon/TUserCircleIcon";
 import TComponentColorSelector from "@/Components/Misc/TComponentColorSelector";
 
 export default {
-    name: "Table",
+    name: "Users",
     components: {
         TComponentColorSelector,
         TUserCircleIcon, TButton, GridSection, TInputText, TInputGroup, AppLayout, TTable, TAvatar, SshPre},
@@ -82,70 +80,8 @@ export default {
                 {label: 'Name', key: 'name', align: 'left'},
                 {label: 'Email', key: 'email', align: 'left'}
             ],
-            sampleCode: {
-                html:
-                    '<t-table\n' +
-                    '    :content="content"\n' +
-                    '    :header="header"\n' +
-                    '    :searchable="[\'name\',\'email\']"\n' +
-                    '    color="solid-blue"\n' +
-                    '    pagination-color="solid-blue"\n' +
-                    '    :radius="3"\n' +
-                    '    :border="true"\n' +
-                    '    :zebra="true"\n' +
-                    '    :shadow="true"\n' +
-                    '>\n' +
-                    '     <!--If you wanto to show a advanced search fileds and button, you shoul use this template area-->\n' +
-                    '     <template #search>\n' +
-                    '         <grid-section col="12" gap="2">\n' +
-                    '             <!--Name-->\n' +
-                    '             <t-input-group class="col-span-12 md:col-span-6" label="Name">\n' +
-                    '                 <t-input-text/>\n' +
-                    '             </t-input-group>\n' +
-                    '             <!--Email-->\n' +
-                    '             <t-input-group class="col-span-12 md:col-span-6" label="Email">\n' +
-                    '                 <t-input-text/>\n' +
-                    '             </t-input-group>\n' +
-                    '         </grid-section>\n' +
-                    '    </template>\n' +
-                    '    <!--If you want to show somethings like that the button at the right, you should this template area-->\n' +
-                    '    <template #right>\n' +
-                    '        <t-button :link="route(\'form-structure\')" :radius="8">\n' +
-                    '            <t-user-circle-icon class="w-6 h-6"/>\n' +
-                    '            Add New User\n' +
-                    '        </t-button>\n' +
-                    '    </template>\n' +
-                    '    <!--If you want to customized content, you should this ScopeSlot template. You can change the photo with your filed\'s key name. You can use for more than fields-->\n' +
-                    '    <template #photo="{props}">\n' +
-                    '        <t-avatar :link="props.photo" :radius="8" :size="3"/>\n' +
-                    '    </template>\n' +
-                    '</t-table>',
-                js:
-                    'import TTable from "@/Components/Table/TTable";\n' +
-                    '\n' +
-                    'export default {\n' +
-                    '  name: "Table",\n' +
-                    '  components: {TTable},\n' +
-                    '  },\n' +
-                    '  data(){\n' +
-                    '    return {\n' +
-                    '      header: [\n' +
-                    '               /* key: You want to field\'s key of write to screen */\n' +
-                    '               /* label: It showing at the header area */\n' +
-                    '               /* position: Content align */\n' +
-                    '               /* width: Content width, if it is blank, it will be auto width */\n' +
-                    '              {key: \'photo\', label: \'Avatar\', position: \'center\', width: \'5\'},\n' +
-                    '              {key: \'name\', label: \'Name\', position: \'left\'},\n' +
-                    '              {key: \'email\', label: \'Email\', position: \'left\'},\n' +
-                    '              ],\n' +
-                    '     content: [\n' +
-                    '               /*id,name,email and status are a key. The status do not write to screen because it\'s not defined in the header. */\n' +
-                    '              {id: 1, name: \'Hamdi KAYA\', email: \'hamdi@tailadmin.dev\', photo: \'img/x2.jpg\'},\n' +
-                    '              {id: 2, name: \'Emre HAS\', email: \'emre@tailadmin.dev\', photo: \'img/x4.jpg\'},\n' +
-                    '              {id: 3, name: \'Zuhal TAŞÇI\', email: \'zuhal@tailadmin.dev\', photo: \'img/x1.jpg\'},\n' +
-                    '              ],\n' +
-                    '     }\n' +
-                    '   }',
+
+
                 table: {
                     header: [
                         {key: 'variable', label: 'Variable'},
@@ -201,7 +137,7 @@ export default {
                         },
                     ]
                 }
-            }
+
         }
     },
     computed: {

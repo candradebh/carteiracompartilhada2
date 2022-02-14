@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LockAuthController;
 use App\Http\Controllers\Settings\UserController;
+use App\Models\Carteira;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
+            'carteiras' => Carteira::where('user_id', auth()->user()->id )->get()
         ]);
     })->name('dashboard');
 
@@ -94,6 +96,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
     Route::get('table',function (){return Inertia::render('Samples/Components/Table',[
         'users' => \App\Models\User::all()
     ]);})->name('table');
+
+    Route::get('usuarios',function (){return Inertia::render('Samples/Components/Table',[
+        'users' => \App\Models\User::all()
+    ]);})->name('table');
+
 
     /*TODO: Toastr Feature
     Route::get('toastr',function (){return Inertia::render('Samples/Components/Toastr');})->name('toastr');*/

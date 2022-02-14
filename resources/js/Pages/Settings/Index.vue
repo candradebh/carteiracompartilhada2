@@ -10,7 +10,7 @@
       <!--Users-->
       <inertia-link :href="route('settings-user.index')">
         <t-content-card color="light-indigo" class="hover:bg-white">
-          <template #title>Users</template>
+          <template #title>Usuários</template>
           <template #icon>
             <t-user-group-icon class="w-12 h-12"/>
           </template>

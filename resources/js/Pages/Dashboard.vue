@@ -102,11 +102,11 @@
         </t-content-card>
         <t-content-card :width="2">
           <template #title>
-            Active Projects
+            Minhas Carteiras
           </template>
           <template #content>
             <!--Table-->
-            <t-table :content="tableContent" :header="tableHeader" :radius="0" :shadow="false" color="solid-white">
+            <t-table :content="carteiras" :header="tableHeader" :radius="0" :shadow="false" color="solid-white">
               <template #status="{props}">
                 <div class="flex justify-center">
                   <t-progress :value="props.status" color="solid-green"/>
@@ -190,21 +190,17 @@ export default {
     AppLayout,
     Welcome,
   },
-  props: ['sessions'],
+  props: ['sessions','carteiras'],
   data() {
     return {
       tableHeader: [
         {key: 'id', label: 'ID', position: 'center'},
-        {key: 'name', label: 'Name', position: 'left'},
-        {key: 'start', label: 'Start Date', position: 'left'},
-        {key: 'end', label: 'End Date', position: 'left'},
+        {key: 'nome', label: 'Nome', position: 'left'},
+        {key: 'tipomoeda', label: 'Moeda', position: 'left'},
+        {key: 'total', label: 'Total', position: 'right'},
         {key: 'status', label: 'Status', position: 'center'}
       ],
-      tableContent: [
-        {id: 1, name: 'VueJS Components', start: '01.03.2021', end: '14.09.2021', status: 10},
-        {id: 2, name: 'Custom Style Optimize', start: '02.05.2021', end: '25.08.2021', status: 20},
-        {id: 3, name: 'Error Management', start: '25.04.2021', end: '30.12.2021', status: 70},
-      ],
+
       breadcrumbs: [
         {label: 'Home', link: '/', active: false},
         {label: 'Dashboard', link: '', active: true, activeColor: 'blue'}

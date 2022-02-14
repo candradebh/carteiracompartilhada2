@@ -1,6 +1,6 @@
 <template>
   <app-layout>
-    <template #header>Users</template>
+    <template #header>Usuários</template>
     <template #subHeader>Management of Users</template>
     <initial-vertical-menu :menu="menuList"/>
     <t-table :content="users" :header="headers" class="mt-4">
@@ -15,14 +15,14 @@
                          @click.native="showDeleteModal(selectedUser = props.id)">
               <div class="inline-flex items-center">
                 <t-trash-icon class="w-5 h-5"/>
-                Delete
+                Excluir
               </div>
             </t-list-item>
             <t-list-item class="hover:bg-blue-100 hover:text-blue-500 cursor-pointer"
                          @click.native="editUser(selectedUser = props.id)">
               <div class="inline-flex items-center">
                 <t-pencil-alt-icon class="w-5 h-5"/>
-                Edit
+                Editar
               </div>
             </t-list-item>
           </t-list>
@@ -31,18 +31,33 @@
     </t-table>
     <t-modal :show="showModal" @close="showModal = $event">
       <template #header>
-        User Deleting
+        Deletar usuário
       </template>
       <template #content>
         <span v-html="modalContent"></span>
       </template>
       <template #footer-left>
-        <t-button color="light-green" @click.native="showModal = false">No, Nevermind</t-button>
+        <t-button color="light-green" @click.native="showModal = false">Não, manter usuário</t-button>
       </template>
       <template #footer-right>
         <form id="delete" @submit.prevent="deleteUser">
-
-          <t-button color="light-gray" type="submit">Yes, Delete</t-button>
+          <t-button color="light-gray" type="submit">Sim, Deletar</t-button>
+        </form>
+      </template>
+    </t-modal>
+       <t-modal :show="showModalEditar" @close="showModalEditar = $event">
+      <template #header>
+        Editar usuário
+      </template>
+      <template #content>
+        <span v-html="modalContent"></span>
+      </template>
+      <template #footer-left>
+        <t-button color="light-green" @click.native="showModalEditar = false">Cancelar</t-button>
+      </template>
+      <template #footer-right>
+        <form id="edit" @submit.prevent="editUser">
+          <t-button color="light-gray" type="submit">Salvar</t-button>
         </form>
       </template>
     </t-modal>
@@ -87,6 +102,7 @@ export default {
   data() {
     return {
       showModal: false,
+      showModalEditar: false,
       modalContent: null,
       selectedUser: null,
       form: this.$inertia.form({
@@ -116,8 +132,15 @@ export default {
         onSuccess: () => this.showModal = false,
       })
     },
-    editUser(id) {
-
+    editUser() {
+      let user;
+      this.users.forEach(item => {
+        if (item.id === this.selectedUser) {
+          user = item
+        }
+      })
+      this.showModalEditar = true
+      this.modalContent = user
     }
   }
 }

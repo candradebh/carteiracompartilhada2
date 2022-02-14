@@ -8,7 +8,7 @@
           <div class="flex justify-between h-10 overflow-hidden mx-4">
             <t-logo class="w-10 h-10 text-white"/>
             <transition name="left-menu">
-              <div v-if="showingLeftMenu === 'true'" class="flex text-3xl text-white h-10 items-center">TailAdmin</div>
+              <div v-if="showingLeftMenu === 'true'" class="flex text-3xl text-white h-10 items-center">CC</div>
             </transition>
           </div>
         </div>
@@ -25,7 +25,7 @@
                     class="flex flex-row justify-center items-center w-full p-3 px-2 border-t border-gray-700 hover:text-gray-400 h-15 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700">
         <t-cog-icon class="w-6 h-6"/>
         <transition name="left-menu">
-          <span v-if="showingLeftMenu === 'true'" class="ml-2">Settings</span>
+          <span v-if="showingLeftMenu === 'true'" class="ml-2">Configurações</span>
         </transition>
       </inertia-link>
     </div>

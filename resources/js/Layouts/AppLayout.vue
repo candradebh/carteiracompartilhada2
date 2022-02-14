@@ -178,7 +178,7 @@
                   <!--Profile-->
                   <inertia-link :href="route('profile.show')">
                     <div class="dropdown-item">
-                      Profile
+                      Perfil
                     </div>
                   </inertia-link>
 
@@ -236,7 +236,7 @@
                   <form @submit.prevent="logout">
                     <button class="w-full border-red-500">
                       <span class="logout-button">
-                        <t-log-out-icon class="w-5 h-5"/> Logout
+                        <t-log-out-icon class="w-5 h-5"/> Sair
                       </span>
                     </button>
                   </form>
