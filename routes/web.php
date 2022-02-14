@@ -3,7 +3,9 @@
 use App\Http\Controllers\LockAuthController;
 use App\Http\Controllers\Settings\UserController;
 use App\Models\Carteira;
+use App\Models\Ordens;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,12 +34,36 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function (){
     Route::get('/', function () {
+        $user_id = auth()->user()->id;
+        $ano = date('Y');
         return Inertia::render('Dashboard',[
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
-            'carteiras' => Carteira::where('user_id', auth()->user()->id )->get()
+            'carteiras' => Carteira::where('user_id', $user_id )->get(),
+            'comprasPorMesAnoAtual'=> Ordens::where('tipoordem','C')->whereBetween('data', [date('Ymd',strtotime($ano."0101")), date('Ymd',strtotime($ano."1231"))])
+                                    ->whereHas('carteira', function ($query) use ($user_id){
+                                        $query->where('carteiras.user_id',$user_id);
+                                    })
+                                    ->orderBy('data')
+                                    ->get()
+                                    ->groupBy(function ($val) {
+                                        return Carbon::parse($val->data)->format('m');
+                                    })->map(function ($row) {
+                                        return $row->sum('total');
+                                    }),
+            'vendasPorMesAnoAtual'=> Ordens::where('tipoordem','V')->whereBetween('data', [date('Ymd',strtotime($ano."0101")), date('Ymd',strtotime($ano."1231"))])
+                                    ->whereHas('carteira', function ($query) use ($user_id){
+                                        $query->where('carteiras.user_id',$user_id);
+                                    })
+                                    ->orderBy('data')
+                                    ->get()
+                                    ->groupBy(function ($val) {
+                                        return Carbon::parse($val->data)->format('m');
+                                    })->map(function ($row) {
+                                        return $row->sum('total');
+                                    })
         ]);
     })->name('dashboard');
 
