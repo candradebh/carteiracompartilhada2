@@ -11,8 +11,8 @@ use App\Models\Operacoes;
 use App\Models\Ordens;
 use App\Models\Resultados;
 use App\Models\CarteiraAnualIrpf;
-use App\Importadores\ImportarNotasBancoInterService;
-use App\Importadores\ImportarNotasBancoXpService;
+use App\Importadores\Notas\ImportarNotasBancoInterService;
+use App\Importadores\Notas\ImportarNotasBancoXpService;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -78,7 +78,8 @@ class ImportarCorretagensController extends Controller
 
             // lê o conteudos dos arquivos
             $importarOrdens->lerNotas();
-            //dd($importarOrdens);
+
+            dd($importarOrdens);
 
         } else {
 
@@ -941,18 +942,15 @@ class ImportarCorretagensController extends Controller
             $carteiras = Carteira::with(['ativos','ordens'])->where('user_id', $userid)->get();
             foreach($carteiras as $carteira){
                 $carteiraIds [] = $carteira->id;
-                $carteira->ativos()->delete();
             }
 
-            //DB::table('ativos_carteiras')->whereIn('carteira_id', $carteiraIds)->delete();
+            DB::table('ativos_carteiras')->whereIn('carteira_id', $carteiraIds)->delete();
 
             //resetar quantidades para recalcular
-            foreach($carteiras as $carteira){
-                $ordens = $carteira->ordens()->get();
-                foreach ($ordens as $ordem) {
-                    $ordem->saldo = $ordem->quantidade;
-                    $ordem->save();
-                }
+            $ordens = Ordens::whereIn('carteira_id', $carteiraIds)->get();
+            foreach ($ordens as $ordem) {
+                $ordem->saldo = $ordem->quantidade;
+                $ordem->save();
             }
 
 

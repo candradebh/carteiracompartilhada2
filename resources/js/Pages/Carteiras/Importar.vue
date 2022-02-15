@@ -29,7 +29,6 @@
                     <t-input-radio-button
                         v-model="form.tipo"
                         :radius="3"
-                        :checked="true"
                         color="solid-green"
                         input-value="todos"
                         label="Todos"

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Importadores;
+namespace App\Importadores\Notas;
 
-
+use App\Importadores\Notas\ImportarNotasService as ImportarNotasService;
 use Smalot\PdfParser\Parser as PdfParser;
 
 class ImportarNotasBancoInterService extends ImportarNotasService

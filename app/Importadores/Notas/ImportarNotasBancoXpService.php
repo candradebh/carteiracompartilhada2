@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Importadores;
+namespace App\Importadores\Notas;
 
 
 use App\Models\Ativos;

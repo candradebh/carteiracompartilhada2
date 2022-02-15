@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Importadores;
+namespace App\Importadores\Notas;
 
 
 use App\Models\Ativos;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Smalot\PdfParser\Parser as PdfParser;
 
-abstract class ImportarNotasService
+class ImportarNotasService
 {
 
     protected $user;
@@ -35,7 +35,9 @@ abstract class ImportarNotasService
 
     }
 
-    abstract function lerNotas();
+    public function lerNotas(){
+
+    }
 
     /**
      *
