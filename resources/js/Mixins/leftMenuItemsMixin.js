@@ -3,6 +3,33 @@ export const leftMenuItemsMixin = {
         return {
             menuList: [
                 {
+                    label: "Carteiras",
+                    icon: "tv",
+                    link: "",
+                    linkType: "route",
+                    type: "dropdown",
+                    activeKey: ["carteiras"],
+                    items: [
+                        {
+                            label: "Carteiras",
+                            icon: "wallet",
+                            link: "carteiras.index",
+                            linkType: "route",
+                            type: "standard",
+                            activeKey: ["carteiras-index"],
+                        },
+                        {
+                            label: "Importar",
+                            icon: "importer",
+                            link: "carteiras.importar",
+                            linkType: "route",
+                            type: "standard",
+                            activeKey: ["profile"],
+                        }
+
+                    ]
+                },
+                {
                     label: "Examples",
                     icon: "tv",
                     link: "",

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\ImportarCorretagensController;
 use App\Http\Controllers\LockAuthController;
+use App\Http\Controllers\OrdensController;
 use App\Http\Controllers\Settings\UserController;
 use App\Models\Carteira;
+use App\Models\Corretoras;
 use App\Models\Ordens;
 use App\Models\User;
 use Carbon\Carbon;
@@ -66,6 +69,28 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function (){
                                     })
         ]);
     })->name('dashboard');
+
+    //rotas de carteiras
+    Route::prefix('carteiras')->group(function () {
+        Route::get('/', function () {
+            return Inertia::render('Carteiras/Index',[
+                                'carteiras' => Carteira::where('user_id', auth()->user()->id )->get()
+
+                            ]);
+        })->name('carteiras.index');
+
+        Route::get('importar', function () {
+            return Inertia::render('Carteiras/Importar',[
+                'corretoras' => Corretoras::where('realizaimportacao',true)->get(),
+                'carteiras'=> Carteira::where('user_id', auth()->user()->id)->get()
+            ]);
+        })->name('carteiras.importar');
+
+        Route::post('importar', [ImportarCorretagensController::class, 'postUploadForm'])->name('carteiras.enviar');
+
+        Route::resource('ordens', OrdensController::class);
+
+     });
 
     /*They are the required pages for the system, don't delete it*/
     Route::prefix('settings')->group(function () {

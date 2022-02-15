@@ -11,12 +11,13 @@ use App\Models\Operacoes;
 use App\Models\Ordens;
 use App\Models\Resultados;
 use App\Models\CarteiraAnualIrpf;
-use App\Services\Importadores\Notas\ImportarNotasBancoInterService;
-use App\Services\Importadores\Notas\ImportarNotasBancoXpService;
+use App\Importadores\ImportarNotasBancoInterService;
+use App\Importadores\ImportarNotasBancoXpService;
 
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 use Smalot\PdfParser\Parser as PdfParser;
 
 class ImportarCorretagensController extends Controller
@@ -29,12 +30,18 @@ class ImportarCorretagensController extends Controller
         $carteiras = User::find($request->user()->id)->carteiras()->get();
 
         $data = compact('corretoras', 'carteiras');
-        //dd($data);
-        return view('carteiras.importar', $data);
+        //return view('carteiras.importar', $data);
+
+        return Inertia::render('Carteiras/Importar',[
+            'corretoras' => Corretoras::where('realizaimportacao',true)->get(),
+            'carteiras'=> Carteira::where('user_id', auth()->user()->id)->get()
+        ]);
     }
 
     public function postUploadForm(Request $request)
     {
+
+        //dd($request->all());
         $carteiraid = $request->get('carteira_id');
 
         $corretora_id = $request->get('corretora_id');
@@ -928,19 +935,28 @@ class ImportarCorretagensController extends Controller
 
             DB::table('resultados')->where('user_id', $userid)->delete();
             DB::table('carteiraanualirpf')->where('user_id', $userid)->delete();
+            $carteiraIds = [];
 
             //deletar os ativos da minha carteira
-            $carteiras = Carteira::with('ativos')->where('user_id', $userid)->get();
-            DB::table('ativos_carteiras')->whereIn('carteira_id', $carteiras)->delete();
-
-            //resetar quantidades para recalcular
-            $ordens = Ordens::whereIn('carteira_id', $carteiras)->get();
-            foreach ($ordens as $ordem) {
-                $ordem->saldo = $ordem->quantidade;
-                $ordem->save();
+            $carteiras = Carteira::with(['ativos','ordens'])->where('user_id', $userid)->get();
+            foreach($carteiras as $carteira){
+                $carteiraIds [] = $carteira->id;
+                $carteira->ativos()->delete();
             }
 
-            $ordens1 = Ordens::with('carteira', 'ativo')->whereIn('carteira_id', $carteiras)->orderBy('data')->get();
+            //DB::table('ativos_carteiras')->whereIn('carteira_id', $carteiraIds)->delete();
+
+            //resetar quantidades para recalcular
+            foreach($carteiras as $carteira){
+                $ordens = $carteira->ordens()->get();
+                foreach ($ordens as $ordem) {
+                    $ordem->saldo = $ordem->quantidade;
+                    $ordem->save();
+                }
+            }
+
+
+            $ordens1 = Ordens::with('carteira', 'ativo')->whereIn('carteira_id', $carteiraIds)->orderBy('data')->get();
 
         }
 
