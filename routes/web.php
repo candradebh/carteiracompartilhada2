@@ -104,8 +104,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         Route::get('/', function () {
             return Inertia::render('Carteiras/Index', [
-                'carteiras' => Carteira::where('user_id', auth()->user()->id)->get(),
-                'usuario'=> []
+                'carteiras' => User::find(auth()->user()->id)->carteiras()->with('ativos')->get(),
+                'usuario'=> User::where('id',auth()->user()->id)->with('carteiras','carteirasCompartilhadas')->first()
             ]);
         })->name('carteiras.index');
 

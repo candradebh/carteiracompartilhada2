@@ -62,4 +62,36 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * O usuário possui varias carteiras de investimento
+     */
+    public function carteiras()
+    {
+        return $this->hasMany('App\Models\Carteira','user_id','id');
+    }
+
+    public function cambios()
+    {
+        return $this->hasMany('App\Models\Exchange','user_id','id');
+    }
+
+    /**
+     * O usuário possui varias carteiras compartilhads
+     */
+    public function carteirasCompartilhadas()
+    {
+        return $this->belongsToMany('App\Models\Carteira', 'carteiras_users', 'user_id','carteira_id')->withPivot('datafinal','status');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
 }

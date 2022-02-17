@@ -22,13 +22,11 @@ class Carteira extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
-
-
 
     public function usuariosCompartilhados()
     {
-        return $this->belongsToMany('App\User', 'carteiras_users', 'carteira_id', 'user_id')->withPivot('datafinal','status');
+        return $this->belongsToMany('App\Models\User', 'carteiras_users', 'carteira_id', 'user_id')->withPivot('datafinal','status');
     }
 }

@@ -26,7 +26,7 @@ class CreateCarteirasUsersTable extends Migration
                     ->on('users')
                     ->onDelete('cascade');
             $table->tinyInteger('status')->default(0);
-            $table->dateTime('dataFinal')->nullable();
+            $table->dateTime('datafinal')->nullable();
             $table->timestamps();
         });
     }

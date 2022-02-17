@@ -38,7 +38,7 @@
             </t-table>
 
             <!--Carteiras compartilhadas-->
-            <t-table :color="tableColorMinhasCarteiras" :content="usuario" :header="headerCarteiras" :pagination="true"
+            <t-table :color="tableColorMinhasCarteiras" :content="usuario.carteiras_compartilhadas" :header="headerCarteiras" :pagination="true"
                      :searchable="['nome','descricao']">
                 <template #search>
                     <grid-section :col="12" :gap="2">
@@ -81,8 +81,8 @@ export default {
             tableColorMinhasCarteiras: 'solid-blue',
             tableColorCarteirasCompartilhadas: 'solid-red',
             headerCarteiras: [
-                {label: 'Nome', key: 'nome', align: 'left'},
-                {label: 'Descrição', key: 'descricao', align: 'left' , width: '10'},
+                {label: 'Nome', key: 'nome', align: 'left', width: '20'},
+                {label: 'Descrição', key: 'descricao', align: 'left' },
                 {label: 'Total', key: 'total', align: 'right', width: '5'},
             ]
 
