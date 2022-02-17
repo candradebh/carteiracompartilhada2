@@ -280,7 +280,7 @@ class ImportarCorretagensController extends Controller
             if (strtoupper($ordem->tipoordem) == "C") {
 
                 $stringOperacao .= "<br><br>COMPRA !!!! -- Indice $indice <br>";
-
+                $carteira->total += $ordem->total;
                 $resultado->compras += $ordem->total;
                 $resultado->patrimonio += $ordem->total;
 
@@ -317,6 +317,7 @@ class ImportarCorretagensController extends Controller
 
                 $stringOperacao .= "<br><br>VENDA !!!! -- Indice $indice <br>";
 
+                $carteira->total -= $ordem->total;
                 $resultado->vendas += $ordem->total;
                 $resultado->patrimonio = $resultado->patrimonio - $ordem->total;
 
@@ -383,6 +384,7 @@ class ImportarCorretagensController extends Controller
             } //fim ordem de venda
 
             //salvar o resultado da compra ou da venda
+            $carteira->save();
             $resultado->save();
             $ativo->pivot->save();
             $ativo->save();
@@ -513,7 +515,7 @@ class ImportarCorretagensController extends Controller
 
                     $dados[($resultado->ano + 1)] = [1 => ["prejuizoacumulado" => $prejuizoacumulado, "patrimonio" => $patrimonioAcumulado]];
                     if ($resultado->ano == 2021) {
-                        dd($dados);
+                        //dd($dados);
                     }
                 }
 

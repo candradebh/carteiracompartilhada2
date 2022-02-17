@@ -147,6 +147,14 @@
           <br/><b>User:</b> Sinan AYDOĞAN
         </t-alert>
       </grid-section>
+
+        <!--Grafico de Barras-->
+      <grid-section :col-tablet="1">
+          <line-chart
+            :chartdata="chartdata"
+            :options="options"/>
+      </grid-section>
+
     </template>
   </app-layout>
 </template>
@@ -169,9 +177,11 @@ import TAlert from "@/Components/Alert/TAlert";
 import TInformationCircleIcon from "@/Components/Icon/TInformationCircleIcon";
 import TTrashIcon from "@/Components/Icon/TTrashIcon";
 import TCheckCircleIcon from "@/Components/Icon/TCheckCircleIcon";
+import TLine from "@/Components/Chart/TLineChart";
 
 export default {
   components: {
+    TLine,
     TCheckCircleIcon,
     TTrashIcon,
     TInformationCircleIcon,
@@ -205,7 +215,21 @@ export default {
       breadcrumbs: [
         {label: 'Home', link: '/', active: false},
         {label: 'Dashboard', link: '', active: true, activeColor: 'blue'}
-      ]
+      ],
+      chartdata: {
+        labels: ['January', 'February'],
+        datasets: [
+            {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            data: [40, 20]
+            }
+        ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
     }
   },
   computed: {
@@ -214,9 +238,7 @@ export default {
   methods: {
     getTotalVendasAno: function () {
         let total = 1
-
         return total
-
     }
   }
 }
