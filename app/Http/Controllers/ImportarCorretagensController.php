@@ -79,7 +79,6 @@ class ImportarCorretagensController extends Controller
             // lê o conteudos dos arquivos
             $importarOrdens->lerNotas();
 
-            dd($importarOrdens);
 
         } else {
 

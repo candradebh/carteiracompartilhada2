@@ -44,7 +44,7 @@
             color="solid-red"
             diff-direction="down"
             diff-value="8%"
-            widget-value="12.254,05 TL">
+            :widget-value="getTotalVendasAno()">
           <template #title>
             Vendas
           </template>
@@ -190,9 +190,10 @@ export default {
     AppLayout,
     Welcome,
   },
-  props: ['sessions','carteiras'],
+  props: ['sessions','carteiras','vendasPorMesAnoAtual'],
   data() {
     return {
+
       tableHeader: [
         {key: 'id', label: 'ID', position: 'center'},
         {key: 'nome', label: 'Nome', position: 'left'},
@@ -205,6 +206,17 @@ export default {
         {label: 'Home', link: '/', active: false},
         {label: 'Dashboard', link: '', active: true, activeColor: 'blue'}
       ]
+    }
+  },
+  computed: {
+
+  },
+  methods: {
+    getTotalVendasAno: function () {
+        let total = 1
+
+        return total
+
     }
   }
 }

@@ -38,7 +38,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function (){
     Route::get('/', function () {
         $user_id = auth()->user()->id;
-        $ano = date('Y');
+        $ano = "2020";//date('Y');
         return Inertia::render('Dashboard',[
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
