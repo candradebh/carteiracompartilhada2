@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Smalot\PdfParser\Parser as PdfParser;
 
-class ImportarNotasService
+abstract class ImportarNotasService
 {
 
     protected $user;
@@ -35,9 +35,9 @@ class ImportarNotasService
 
     }
 
-    public function lerNotas(){
+    abstract function lerNotas();
 
-    }
+    
 
     /**
      *
