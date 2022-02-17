@@ -44,7 +44,7 @@
             color="solid-red"
             diff-direction="down"
             diff-value="8%"
-            :widget-value="getTotalVendasAno()">
+            :widget-value="vendasMesAnoAtual">
           <template #title>
             Vendas
           </template>
@@ -190,7 +190,7 @@ export default {
     AppLayout,
     Welcome,
   },
-  props: ['sessions','carteiras','vendasPorMesAnoAtual'],
+  props: ['sessions','carteiras','comprasMesAno','vendasMesAno','vendasMesAnoAtual'],
   data() {
     return {
 

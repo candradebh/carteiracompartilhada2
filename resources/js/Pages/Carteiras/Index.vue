@@ -10,26 +10,26 @@
         </template>
         <!--Content-->
         <template #default>
-            <t-component-color-selector @selected-color="tableColor = $event"/>
+            <!-- <t-component-color-selector @selected-color="tableColor = $event"/> -->
 
-            <t-table :color="tableColor" :content="users" :header="header" :pagination="true"
-                     :searchable="['name','email']">
+            <t-table :color="tableColorMinhasCarteiras" :content="carteiras" :header="headerCarteiras" :pagination="true"
+                     :searchable="['nome','descricao']">
                 <template #search>
                     <grid-section :col="12" :gap="2">
                         <!--Name-->
-                        <t-input-group class="col-span-12 md:col-span-6" label="Name">
-                            <t-input-text id="name"/>
+                        <t-input-group class="col-span-12 md:col-span-6" label="Nome">
+                            <t-input-text id="nome"/>
                         </t-input-group>
                         <!--Email-->
-                        <t-input-group class="col-span-12 md:col-span-6" label="Email">
-                            <t-input-text id="email"/>
+                        <t-input-group class="col-span-12 md:col-span-6" label="Descricão">
+                            <t-input-text id="descricao"/>
                         </t-input-group>
                     </grid-section>
                 </template>
                 <template #right>
                     <t-button :link="route('form-structure')" :radius="8">
                         <t-user-circle-icon class="w-6 h-6"/>
-                        Novo Usuário
+                        Nova Carteira
                     </t-button>
                 </template>
                 <template #photo="{props}">
@@ -37,17 +37,21 @@
                 </template>
             </t-table>
 
-            <!--Variables Table-->
-            <t-table
-                :content="table.content"
-                :header="table.header"
-                :searchable="['variable','details']"
-                class="mt-5"
-                color="solid-blue">
-              <template #details="{props}">
-              <span class="whitespace-nowrap tablet:whitespace-normal" v-html="props.details">
-              </span>
-              </template>
+            <!--Carteiras compartilhadas-->
+            <t-table :color="tableColorMinhasCarteiras" :content="usuario" :header="headerCarteiras" :pagination="true"
+                     :searchable="['nome','descricao']">
+                <template #search>
+                    <grid-section :col="12" :gap="2">
+                        <!--Name-->
+                        <t-input-group class="col-span-12 md:col-span-6" label="Nome">
+                            <t-input-text id="nome"/>
+                        </t-input-group>
+                        <!--Email-->
+                        <t-input-group class="col-span-12 md:col-span-6" label="Descricão">
+                            <t-input-text id="descricao"/>
+                        </t-input-group>
+                    </grid-section>
+                </template>
             </t-table>
         </template>
     </app-layout>
@@ -71,72 +75,16 @@ export default {
     components: {
         TComponentColorSelector,
         TUserCircleIcon, TButton, GridSection, TInputText, TInputGroup, AppLayout, TTable, TAvatar, SshPre},
-    props: ['users'],
+    props: ['users','carteiras','usuario'],
     data() {
         return {
-            tableColor: 'solid-blue',
-            header: [
-                {label: 'Avatar', key: 'photo', align: 'center', width: '5'},
-                {label: 'Name', key: 'name', align: 'left'},
-                {label: 'Email', key: 'email', align: 'left'}
-            ],
-
-
-                table: {
-                    header: [
-                        {key: 'variable', label: 'Variable'},
-                        {key: 'type', label: 'Value Type'},
-                        {key: 'details', label: 'Details'},
-                    ],
-                    content: [
-                        {
-                            variable: ':content',
-                            type: 'Array',
-                            details: 'You should define array your content.'
-                        },
-                        {
-                            variable: ':header',
-                            type: 'Array',
-                            details: 'You should define array your content header.'
-                        },
-                        {
-                            variable: ':searchable',
-                            type: 'Array',
-                            details: 'It\'s you want to search in which the fields. You should write the field\'s key names. If it\'s blank, the search area will be hidden'
-                        },
-                      {
-                        variable: 'color',
-                        type: 'String',
-                        details: "Your table color theme.<br><b>Options Solid:</b> solid-red, solid-blue, solid-green, solid-yellow, solid-indigo, solid-pink, solid-purple, solid-gray, solid-black, solid-white,<br>" +
-                            "<b>Options Light:</b> light-red, light-blue, light-green, light-yellow, light-indigo, light-pink, light-purple, light-gray<br>"
-                      },
-                        {
-                            variable: "pagination-color",
-                            type: "String",
-                            details: "Your table\'s pagination color theme. If you want to set different color than the table color, you can use it. If you didn't use it, the pagination color will be the table color<br><b>Options Solid:</b> solid-red, solid-blue, solid-green, solid-yellow, solid-indigo, solid-pink, solid-purple, solid-gray, solid-black, solid-white,<br><b>Options Light:</b> light-red, light-blue, light-green, light-yellow, light-indigo, light-pink, light-purple, light-gray<br>"
-                        },
-                        {
-                            variable: ":radius",
-                            type: "Number",
-                            details: "<b>Options:</b> none, 1, 2, 3, 4, 5, 6, 7, 8. <br><b>Default:</b> 3"
-                        },
-                        {
-                            variable: ":border",
-                            type: "Number",
-                            details: "If you want to show a border between rows. <b>Options:</b> true, false. <br><b>Default:</b> true"
-                        },
-                        {
-                            variable: ":zebra",
-                            type: "Number",
-                            details: "If you want the table looks like zebra. <b>Options:</b> true, false. <br><b>Default:</b> true"
-                        },
-                        {
-                            variable: ":shadow",
-                            type: "Number",
-                            details: "If you want to show the show around the table <b>Options:</b> true, false. <br><b>Default:</b> true"
-                        },
-                    ]
-                }
+            tableColorMinhasCarteiras: 'solid-blue',
+            tableColorCarteirasCompartilhadas: 'solid-red',
+            headerCarteiras: [
+                {label: 'Nome', key: 'nome', align: 'left'},
+                {label: 'Descrição', key: 'descricao', align: 'left' , width: '10'},
+                {label: 'Total', key: 'total', align: 'right', width: '5'},
+            ]
 
         }
     },
