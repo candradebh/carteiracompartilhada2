@@ -11,6 +11,7 @@
                 :css="table"
                 :show-sort-icons="true"
                 :per-page="3"
+                :tableHeight="100"
             ></vuetable>
        </div>
   </div>
@@ -45,11 +46,12 @@ export default {
   data() {
     return {
       css : tableStyleMixin,
+
       table: {
             tableWrapper: 'table w-full',
             tableHeaderClass: 'border-collapse border border-slate-400',
             tableBodyClass: 'solid-blue',
-            tableClass: 'w-full',
+            tableClass: 'w-full hover:border-collapse',
             loadingClass: 'loading',
             ascendingIcon: 'blue chevron up icon',
             descendingIcon: 'blue chevron down icon',

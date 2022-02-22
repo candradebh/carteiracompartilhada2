@@ -43,17 +43,19 @@ export default {
                 {
                     name: 'ativo_id',
                     sortField: 'ativo_id',
+                    titleClass: 'center aligned border',
                     dataClass: 'border-collapse border border-slate-400'
                 },
                 {
                     name: 'tipooperacao',
                     title: 'Tipo',
+                    titleClass: 'center aligned border',
                     dataClass: 'border-collapse border border-slate-400'
                 },
                 {
                     name: 'data',
                     sortField: 'data',
-                    titleClass: 'center aligned',
+                    titleClass: 'center aligned border',
                     dataClass: 'border-collapse border border-slate-400'
                 },
             ]
