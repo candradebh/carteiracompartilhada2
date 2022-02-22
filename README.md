@@ -55,14 +55,19 @@ Admin Login Infos / Demo Account
 <img src="https://core.tailadmin.dev/img/misc/tailadmin-youtube-main-demo.png" alt="TailAdmin Demo"/>
 </a>
 
-<p align="center">
-  :rocket: If you looking for Vue3 version, You can use <a href="https://github.com/sinan-aydogan/anemon-laravel">Anemon</a> :rocket:
-</p>
 
-## Featured :
+## Criando nova pagina e menu:
 
-- TailwindCSS
-- Vue.js Laravel 8 - JetStream Inertia
+### Criando menu
+
+- Acessar resources/js/Mixins/leftMenuItemsMixin.js e adicionar o link ou estrutura de menu no formato json
+- criar rota em routes/web.php
+` Route::prefix('admin')->group(function () {
+        Route::get('usuarios', function () {return Inertia::render('Usuarios/Index', [
+            'usuarios' => User::all()
+        ]);})->name('usuarios.index');`
+
+
 - Every components are well documented
 - Easy usability
 - Simple and short code blocks

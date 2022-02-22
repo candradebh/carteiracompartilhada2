@@ -5,6 +5,7 @@ use App\Http\Controllers\OrdensController;
 use App\Http\Controllers\Settings\UserController;
 use App\Models\Carteira;
 use App\Models\Corretoras;
+use App\Models\Operacoes;
 use App\Models\Ordens;
 use App\Models\User;
 use Carbon\Carbon;
@@ -133,6 +134,32 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('role', function () {return Inertia::render('Settings/Role');})->name('settings-role');
         Route::get('permission', function () {return Inertia::render('Settings/Permission');})->name('settings-permission');
         Route::get('system', function () {return Inertia::render('Settings/System');})->name('settings-system');
+    });
+
+
+    Route::prefix('admin')->group(function () {
+
+        Route::prefix('usuarios')->group(function () {
+            Route::get('/', function () {
+                    return Inertia::render('Admin/Usuarios/Index', [
+                    'users' => User::all()
+                ]);
+            })->name('admin.usuarios.index');
+
+        });
+
+        Route::prefix('operacoes')->group(function () {
+            Route::get('/', function () {
+                    return Inertia::render('Admin/Operacoes/Index', [
+                    'operacoes' => Operacoes::with('ativo')->get()
+                ]);
+            })->name('admin.operacoes.index');
+
+        });
+
+
+        //Route::get('role', function () {return Inertia::render('Settings/Role');})->name('settings-role');
+
     });
 
     /*This pages for example, you can delete when you design the your system*/

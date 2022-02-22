@@ -30,6 +30,33 @@ export const leftMenuItemsMixin = {
                     ]
                 },
                 {
+                    label: "Admin",
+                    icon: "tv",
+                    link: "",
+                    linkType: "route",
+                    type: "dropdown",
+                    activeKey: ["admin"],
+                    items: [
+                        {
+                            label: "Usuários",
+                            icon: "users",
+                            link: "admin.usuarios.index",
+                            linkType: "route",
+                            type: "standard",
+                            activeKey: ["admin-users-index"],
+                        },
+                        {
+                            label: "Operações",
+                            icon: "settings",
+                            link: "admin.operacoes.index",
+                            linkType: "route",
+                            type: "standard",
+                            activeKey: ["admin-operacoes-index"],
+                        }
+
+                    ]
+                },
+                {
                     label: "Examples",
                     icon: "tv",
                     link: "",
