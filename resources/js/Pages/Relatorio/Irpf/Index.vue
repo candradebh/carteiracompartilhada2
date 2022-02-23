@@ -28,8 +28,21 @@
 
             <t-component-color-selector @selected-color="tableColor = $event"/>
 
-            <t-table :color="tableColor" :data="posicaoAnual" :headers="headerPosicaoAtual" :pagination="false">
-            </t-table>
+            <table class="table w-full border-collapse">
+                <thead>
+                    <tr class="bg-red-200">
+                        <th v-for="item in headerPosicaoAtual" :key="item.id"> {{item.text}} </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in posicaoAnual" :key="item.ativo.ticker">
+                        <td>{{item.ativo.ticker}}</td>
+                        <td>{{item.ativo.cnpj}}</td>
+                        <td>{{item.quantidade}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
 
             <t-table :color="tableColor" :data="resultadosAcoes" :headers="headerAcoes" :pagination="false" >
             </t-table>
@@ -67,8 +80,8 @@ export default {
             headerPosicaoAtual: [
                 {text: 'Ticker', value: 'ativo_id', id: 'ativo_id', className: 'bg-red-200'},
                 {text: 'Cnpj', value: 'cnpj', id: 'cnpj', className: 'bg-red-200'},
-                {text: 'Quantidade', value: 'quantidade', id: 'quantidade', className: 'bg-red-200'},
-                {text: 'Total', value: 'name', id: 'total', className: 'bg-red-200'}
+                {text: 'Quantidade', value: 'quantidade', id: 'quantidade', className: 'bg-red-200'}
+
             ],
             headerAcoes: [
                 {text: 'Mês', value: 'mes', id: 'mes-id', className: 'bg-red-200'},
