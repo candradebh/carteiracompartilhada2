@@ -1,0 +1,7 @@
+select a.ticker, ac.* from carteiras c
+inner join ativos_carteiras ac ON ac.carteira_id = c.id
+inner join ativos a ON a.id = ac.ativo_id
+where c.id = 1
+
+
+select * from users where email = 'carlinhosandrade_@hotmail.com'

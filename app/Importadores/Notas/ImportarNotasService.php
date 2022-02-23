@@ -37,7 +37,7 @@ abstract class ImportarNotasService
 
     abstract function lerNotas();
 
-    
+
 
     /**
      *
@@ -154,7 +154,6 @@ abstract class ImportarNotasService
         }
 
         $this->files = $notasCorretagens;
-        //return $notasCorretagens;
     }
 
     public function getConteudoPdf($file)

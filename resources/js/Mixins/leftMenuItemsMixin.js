@@ -12,7 +12,7 @@ export const leftMenuItemsMixin = {
                     items: [
                         {
                             label: "Carteiras",
-                            icon: "wallet",
+                            icon: "",
                             link: "carteiras.index",
                             linkType: "route",
                             type: "standard",
@@ -20,7 +20,7 @@ export const leftMenuItemsMixin = {
                         },
                         {
                             label: "Importar",
-                            icon: "importer",
+                            icon: "",
                             link: "carteiras.importar",
                             linkType: "route",
                             type: "standard",
@@ -39,7 +39,7 @@ export const leftMenuItemsMixin = {
                     items: [
                         {
                             label: "Usuários",
-                            icon: "users",
+                            icon: "",
                             link: "admin.usuarios.index",
                             linkType: "route",
                             type: "standard",
@@ -47,11 +47,30 @@ export const leftMenuItemsMixin = {
                         },
                         {
                             label: "Operações",
-                            icon: "settings",
+                            icon: "",
                             link: "admin.operacoes.index",
                             linkType: "route",
                             type: "standard",
                             activeKey: ["admin-operacoes-index"],
+                        }
+
+                    ]
+                },
+                {
+                    label: "Relatórios",
+                    icon: "window-maximize",
+                    link: "",
+                    linkType: "route",
+                    type: "dropdown",
+                    activeKey: ["relatorio"],
+                    items: [
+                        {
+                            label: "IRPF",
+                            icon: "",
+                            link: "relatorio.irpf.index",
+                            linkType: "route",
+                            type: "standard",
+                            activeKey: ["relatorio-irpf-index"],
                         }
 
                     ]
@@ -103,46 +122,7 @@ export const leftMenuItemsMixin = {
                             type: "standard",
                             activeKey: ["profile"],
                         },
-                        /*{
-                            label: "Pricing",
-                            icon: "",
-                            link: "pricing",
-                            linkType: "route",
-                            type: "standard",
-                            activeKey: ["pricing"],
-                        },
-                        {
-                            label: "Project App",
-                            icon: "",
-                            link: "project-management-app",
-                            linkType: "route",
-                            type: "standard",
-                            activeKey: ["project-management-app"],
-                        },
-                        {
-                            label: "Todo App",
-                            icon: "",
-                            link: "todo-app",
-                            linkType: "route",
-                            type: "standard",
-                            activeKey: ["todo-app"],
-                        },
-                        {
-                            label: "Email App",
-                            icon: "",
-                            link: "email-app",
-                            linkType: "route",
-                            type: "standard",
-                            activeKey: ["email-app"],
-                        },
-                        {
-                            label: "Chat App",
-                            icon: "",
-                            link: "chat-app",
-                            linkType: "route",
-                            type: "standard",
-                            activeKey: ["chat-app"],
-                        }*/
+
                     ]
                 },
                 {

@@ -42,9 +42,12 @@ class ImportarCorretagensController extends Controller
     {
 
         //dd($request->all());
-        $carteiraid = $request->get('carteira_id');
 
-        $corretora_id = $request->get('corretora_id');
+        //dados para importacao
+        $carteiraid = 1; //$request->get('carteira_id');
+        $corretora_id = 1;//$request->get('corretora_id');
+        $tipoImportacao = "todos";//$request->get('tipo');
+
         $corretora = Corretoras::find($corretora_id);
         $nomeDiretorio = strtolower(str_replace(' ', '', $corretora->nome));
 
@@ -52,7 +55,6 @@ class ImportarCorretagensController extends Controller
         $notas = [];
         $ordens = [];
 
-        $tipoImportacao = $request->get('tipo');
 
         $importarOrdens = null;
         if ($corretora != null && $corretora->realizaimportacao == 1) {
@@ -152,12 +154,9 @@ class ImportarCorretagensController extends Controller
 
         // lê as ordens das notas lidas
         $importarOrdens->obterOrdensDasNotas();
-        //dd($importarOrdens);
+
         // grava isso no banco de dados se não tiver gravado
         $importarOrdens->gravarOrdensBanco();
-
-        //obter todas as ordens importadas
-        $ordens = $importarOrdens->ordens;
 
         $this->processarPM(true, $request->user()->id);
         //dd($ordens);
@@ -170,7 +169,7 @@ class ImportarCorretagensController extends Controller
         return back()
             ->with('success', 'Você importou as notas')
             ->with('arquivos', $arquivos)
-            ->with('ordens', $ordens);
+            ->with('ordens', $importarOrdens->ordens);
     }
 
     /**
@@ -189,7 +188,6 @@ class ImportarCorretagensController extends Controller
         $indice = 0;
         $ativosCarteiraDezembro = [];
 
-        //dd($ordens);
         $stringImportacao = "";
 
         // Apaga os dados do usuário nas tabelas de resultados,carteiraanualirpf,ativos_carteiras, reseta quantidade na tabela de ordens
@@ -219,8 +217,9 @@ class ImportarCorretagensController extends Controller
                 if (!isset($ativosCarteiraDezembro[$carteiraAtual->user_id][$anoAnterior])) {
                     $ativosCarteiraDezembro[$carteiraAtual->user_id][$anoAnterior] = $ativosAtuais;
                 }
+
                 //imprime uma tabela com as posiçoes
-                $this->imprimePosicoes($ano, $ativosCarteiraDezembro, "Fundos Imobiliários");
+                //$this->imprimePosicoes($ano, $ativosCarteiraDezembro, "Fundos Imobiliários");
 
                 //dd($ativosAtuais);
                 $anoAnterior = $ano;
@@ -273,14 +272,11 @@ class ImportarCorretagensController extends Controller
 
             //pegando o objeto atualizado apos a fusao
             $ativo = $carteira->ativos()->wherePivot('ativo_id', $ordem->ativo_id)->first();
-            if($ativo->ticker == "AMER3"){
-                //dd([$ativo,$carteira,$ordem->refresh()]);
-            }
 
             if (strtoupper($ordem->tipoordem) == "C") {
 
                 $stringOperacao .= "<br><br>COMPRA !!!! -- Indice $indice <br>";
-                $carteira->total += $ordem->total;
+
                 $resultado->compras += $ordem->total;
                 $resultado->patrimonio += $ordem->total;
 
@@ -317,7 +313,7 @@ class ImportarCorretagensController extends Controller
 
                 $stringOperacao .= "<br><br>VENDA !!!! -- Indice $indice <br>";
 
-                $carteira->total -= $ordem->total;
+
                 $resultado->vendas += $ordem->total;
                 $resultado->patrimonio = $resultado->patrimonio - $ordem->total;
 
@@ -384,17 +380,14 @@ class ImportarCorretagensController extends Controller
             } //fim ordem de venda
 
             //salvar o resultado da compra ou da venda
-            $carteira->save();
+
             $resultado->save();
             $ativo->pivot->save();
             $ativo->save();
 
-            //if($ordem->ativo->categoria=="Fundos Imobiliário"){
-            if ($ordem->data > "2020-01-01" && $ordem->data < "2020-12-31") {
-                //$stringImportacao .= $stringOperacao;
-            }
+
             $stringImportacao .= $stringOperacao;
-            //dd($ordersDoAtivo);
+            //dd($ativo);
 
         } //foreach ordens
 

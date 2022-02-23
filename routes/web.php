@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ImportarCorretagensController;
+use App\Http\Controllers\ImpostosController;
 use App\Http\Controllers\OrdensController;
 use App\Http\Controllers\Settings\UserController;
 use App\Models\Carteira;
@@ -43,7 +44,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         $anoAtual = date('Y');
         $ano = $request->get('ano');
 
-        if(!isset($ano) || $ano == null){
+        if (!isset($ano) || $ano == null) {
             $ano = $anoAtual;
         }
 
@@ -96,7 +97,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             'carteiras' => Carteira::where('user_id', $user_id)->get(),
             'comprasMesAno' => $comprasMesAno,
             'vendasMesAno' => $vendasMesAno,
-            'vendasMesAnoAtual'=>$vendasMesAtual
+            'vendasMesAnoAtual' => $vendasMesAtual,
         ]);
     })->name('dashboard');
 
@@ -106,7 +107,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', function () {
             return Inertia::render('Carteiras/Index', [
                 'carteiras' => User::find(auth()->user()->id)->carteiras()->with('ativos')->get(),
-                'usuario'=> User::where('id',auth()->user()->id)->with('carteiras','carteirasCompartilhadas')->first()
+                'usuario' => User::where('id', auth()->user()->id)->with('carteiras', 'carteirasCompartilhadas')->first(),
             ]);
         })->name('carteiras.index');
 
@@ -120,6 +121,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::post('importar', [ImportarCorretagensController::class, 'postUploadForm'])->name('carteiras.enviar');
 
         Route::resource('ordens', OrdensController::class);
+
+        //testes
+        Route::get('testeimportar', [ImportarCorretagensController::class, 'postUploadForm'])->name('carteiras.testeimportar');
+
 
     });
 
@@ -136,13 +141,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('system', function () {return Inertia::render('Settings/System');})->name('settings-system');
     });
 
-
+    //administracao do sistam
     Route::prefix('admin')->group(function () {
 
         Route::prefix('usuarios')->group(function () {
             Route::get('/', function () {
-                    return Inertia::render('Admin/Usuarios/Index', [
-                    'users' => User::all()
+                return Inertia::render('Admin/Usuarios/Index', [
+                    'users' => User::all(),
                 ]);
             })->name('admin.usuarios.index');
 
@@ -150,16 +155,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         Route::prefix('operacoes')->group(function () {
             Route::get('/', function () {
-                    return Inertia::render('Admin/Operacoes/Index', [
-                    'operacoes' => Operacoes::with('ativo')->get()
+                return Inertia::render('Admin/Operacoes/Index', [
+                    'operacoes' => Operacoes::with('ativo')->get(),
                 ]);
             })->name('admin.operacoes.index');
 
         });
 
-
         //Route::get('role', function () {return Inertia::render('Settings/Role');})->name('settings-role');
 
+    });
+
+    //relatorios do sistema
+    Route::prefix('relatorio')->group(function () {
+        Route::prefix('irpf')->group(function () {
+            Route::get('/', [ImpostosController::class, 'index'])->name('relatorio.irpf.index');
+        });
     });
 
     /*This pages for example, you can delete when you design the your system*/
