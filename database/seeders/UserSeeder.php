@@ -15,46 +15,67 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        /*Admin*/
+        $admin = tap(User::create([
+            'name' => 'Super Admin',
+            'email' => 'carlinhosandrade_@hotmail.com',
+            'password' => bcrypt('cm2209'),
+        ]), function (User $user) {
+            (new CreateNewUser())->createTeam($user);
+        });
+
+        /*Editor*/
+        $editor = tap(User::create([
+            'name' => 'Editor',
+            'email' => 'editor@tailadmin.dev',
+            'password' => bcrypt('editor'),
+        ]), function (User $user) {
+            (new CreateNewUser())->createTeam($user);
+        });
+
+        /*Simple User*/
+        $simpleUser = tap(User::create([
+            'name' => 'Super User',
+            'email' => 'user@tailadmin.dev',
+            'password' => bcrypt('user'),
+        ]), function (User $user) {
+            (new CreateNewUser())->createTeam($user);
+        });
+
+        /*Assign Role*/
+        $admin->assignRole('Super Admin');
+        $editor->assignRole('Editor');
+        $simpleUser->assignRole('Simple User');
+
+        //-------------meus
         $data = [
             [
-                'name' => 'Carlos Andrade',
-                'title' => 'Dono Da porra toda',
-                'email' => 'carlinhosandrade_@hotmail.com',
-                'password' => bcrypt('cm2209'),
-            ],
-            [
                 'name' => 'Maria Sales',
-                'title' => 'Gostosona',
                 'email' => 'mariah_xxi@hotmail.com',
                 'password' => bcrypt('cm2209'),
             ],
             [
                 'name' => 'Marcone',
-                'title' => 'Seta longo prazo',
                 'email' => 'marconesenna@hotmail.com',
                 'password' => bcrypt('cm2209'),
             ],
             [
                 'name' => 'Andressa',
-                'title' => 'Rica',
                 'email' => 'andressarodriguesandrade@gmail.com',
                 'password' => bcrypt('cm2209'),
             ],
             [
                 'name' => 'Vickin',
-                'title' => 'PSI',
                 'email' => 'ludevinogoncalves@hotmail.com',
                 'password' => bcrypt('cm2209'),
             ]
         ];
 
-        /*Admins*/
         foreach($data as $user){
-            tap(User::create($user), function (User $user) {
-                (new CreateNewUser())->createTeam($user);
-            });
+            $simpleUser = tap(User::create($user), function (User $user) {
+                            (new CreateNewUser())->createTeam($user);
+                        });
+            $simpleUser->assignRole('Simple User');             
         }
-
-
     }
 }

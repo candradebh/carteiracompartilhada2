@@ -1,260 +1,352 @@
 <template>
-  <app-layout>
-    <template #header>Avatars</template>
-    <template #subHeader>User avatars and team members avatar group</template>
-    <template #default>
-      <grid-section :col-tablet="2">
-        <!--Avatar Radius Card-->
-        <t-content-card :width="1" color="gradient-gray-to-gray">
-          <template #title>Avatar Radius</template>
-          <template #subTitle> 9 different radius sizes</template>
-          <template #content>
-            <div class="flex flex-wrap gap-4">
-              <t-avatar :radius="0" src="https://i.pravatar.cc/300?img=0"/>
-              <t-avatar
-                  v-for="i in 8"
-                  :key="i"
-                  :radius="i"
-                  :src="'https://i.pravatar.cc/300?img='+i"
-              />
-            </div>
-          </template>
-        </t-content-card>
-        <!--Avatar Group-->
-        <t-content-card :width="1">
-          <template #title>Avatar Group - Team Members</template>
-          <template #subTitle>Best for lists of project members. The avatars gets from <a href="https://pravatar.cc/"
-                                                                                          target="_blank">https://pravatar.cc/</a>
-          </template>
-          <template #content>
-            <div class="flex flex-wrap gap-4">
-              <t-avatar-group>
-                <t-avatar
-                    v-for="i in 8"
-                    :key="i"
-                    :radius="8"
-                    :src="'https://i.pravatar.cc/300?img='+i"
-                />
-              </t-avatar-group>
-            </div>
-          </template>
-        </t-content-card>
-        <!--Avatar Sizes Card-->
-        <t-content-card :width="1">
-          <template #title>Avatar Sizes</template>
-          <template #subTitle>8 different sizes</template>
-          <template #content>
-            <div class="flex flex-wrap items-end gap-4">
-              <t-avatar
-                  v-for="i in 8"
-                  :key="i"
-                  :radius="3"
-                  :size="i"
-                  :src="'https://i.pravatar.cc/300?img='+i"
-              />
-            </div>
-          </template>
-        </t-content-card>
-        <!--Avatar Indicator Card-->
-        <t-content-card :width="1">
-          <template #title> Avatar Indicator</template>
-          <template #subTitle> 8 different colors and 4 different positions</template>
-          <template #content>
-            <div class="flex flex-wrap items-end gap-4">
-              <t-avatar
-                  :indicator="{
-                    color: 'solid-red',
-                    label: 2,
-                    position: 'lb'
-                  }"
-                  :radius="1"
-                  :size="1"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'solid*blue',
-                    label: 2,
-                    position: 'lt'
-                  }"
-                  :radius="2"
-                  :size="2"
-                  src="https://i.pravatar.cc/300?img=0"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'solid-green',
-                    position: 'rb'
-                  }"
-                  :radius="3"
-                  :size="3"
-                  src="https://i.pravatar.cc/300?img=1"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'solid-yellow',
-                    label: 14,
-                    position: 'lb'
-                  }"
-                  :radius="4"
-                  :size="4"
-                  src="https://i.pravatar.cc/300?img=2"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'solid-indigo',
-                    label: 7,
-                    position: 'rt'
-                  }"
-                  :radius="5"
-                  :size="5"
-                  src="https://i.pravatar.cc/300?img=3"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'solid-pink',
-                    label: 85,
-                    position: 'rt'
-                  }"
-                  :radius="6"
-                  :size="6"
-                  src="https://i.pravatar.cc/300?img=4"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'light-purple',
-                    label: 12,
-                    position: 'lb'
-                  }"
-                  :radius="7"
-                  :size="7"
-                  src="https://i.pravatar.cc/300?img=5"
-              />
-              <t-avatar
-                  :indicator="{
-                    color: 'gradient-red-to-pink',
-                    label: 2,
-                    position: 'rb'
-                  }"
-                  :radius="8"
-                  :size="8"
-                  src="https://i.pravatar.cc/300?img=6"
-              />
-            </div>
-          </template>
-        </t-content-card>
-      </grid-section>
-      <!--Sample Codes-->
-      <ssh-pre :copy-button="true" label="Code" language="html">{{ sampleCode.html }}</ssh-pre>
-      <ssh-pre :copy-button="true" label="JS" language="js">{{ sampleCode.js }}</ssh-pre>
-      <!--Variables Table-->
-      <t-table
-          :content="sampleCode.table.content"
-          :header="sampleCode.table.header"
-          :searchable="['variable','details']"
-          class="mt-5"
-          color="solid-blue"
-      >
-        <template #details="{props}">
-              <span class="whitespace-nowrap tablet:whitespace-normal" v-html="props.details">
-              </span>
+    <app-layout :title="tm('pageTitle')">
+        <template #header>
+            {{tm('pageTitle')}}
         </template>
-      </t-table>
-    </template>
-  </app-layout>
+        <template #subHeader>
+            {{tm('pageSubTitle')}}
+        </template>
+        <template #default>
+            <grid-section :col-phone="1" :col-desktop="2">
+
+                <!--Simple Avatar-->
+                <t-code-showcase
+                    :tabs="showcaseTabs"
+                >
+                    <div class="flex flex-wrap gap-4 bg-slate-400/50 dark:bg-slate-800 rounded p-4">
+                        <t-avatar :radius="0" src="https://i.pravatar.cc/300?img=0"/>
+                        <t-avatar
+                            v-for="i in 8"
+                            :key="i"
+                            :radius="i"
+                            :src="'https://i.pravatar.cc/300?img='+i"
+                        />
+                    </div>
+                     <template #js>{{ docSamples.simple.js }}</template>
+                        <template #template>{{ docSamples.simple.template }}</template>
+                </t-code-showcase>
+
+
+                <!--Avatar Group-->
+                <t-code-showcase
+                    :tabs="showcaseTabs"
+                >
+                    <div class="flex flex-wrap gap-4 bg-slate-400/50 dark:bg-slate-800 rounded p-4">
+                        <t-avatar-group>
+                            <t-avatar
+                                v-for="i in 8"
+                                :key="i"
+                                :radius="8"
+                                :src="'https://i.pravatar.cc/300?img='+i"
+                            />
+                        </t-avatar-group>
+                    </div>
+                     <template #js>{{ docSamples.group.js }}</template>
+                        <template #template>{{ docSamples.group.template }}</template>
+                </t-code-showcase>
+
+                <!--Different Sizes-->
+                <t-code-showcase
+                    :tabs="showcaseTabs"
+                >
+                    <div class="flex flex-wrap place-items-end gap-4 bg-slate-400/50 dark:bg-slate-800 rounded p-4">
+                        <t-avatar
+                            v-for="i in 8"
+                            :key="i"
+                            :radius="3"
+                            :size="9-i"
+                            :src="'https://i.pravatar.cc/300?img='+i"
+                        />
+                    </div>
+                     <template #js>{{ docSamples.size.js }}</template>
+                        <template #template>{{ docSamples.size.template }}</template>
+                </t-code-showcase>
+
+
+                <!--Avatar Indicators-->
+                <t-code-showcase
+                    :tabs="showcaseTabs"
+                >
+                    <div class="flex flex-wrap place-items-end gap-4 bg-slate-400/50 dark:bg-slate-800 rounded p-4">
+
+                        <t-avatar
+                            :indicator="{
+                            color: 'pink',
+                            label: 2,
+                            position: 'rb'
+                        }"
+                            :radius="8"
+                            :size="8"
+                            src="https://i.pravatar.cc/300?img=8"
+                        />
+
+                        <t-avatar
+                            :indicator="{
+                            color: 'light',
+                            label: 12,
+                            position: 'lb'
+                        }"
+                            :radius="7"
+                            :size="7"
+                            src="https://i.pravatar.cc/300?img=5"
+                        />
+
+                        <t-avatar
+                            :indicator="{
+                            color: 'danger',
+                            label: 85,
+                            position: 'rt'
+                        }"
+                            :radius="6"
+                            :size="6"
+                            src="https://i.pravatar.cc/300?img=4"
+                        />
+
+                        <t-avatar
+                            :indicator="{
+                            color: 'purple',
+                            label: 7,
+                            position: 'rt'
+                        }"
+                            :radius="5"
+                            :size="5"
+                            src="https://i.pravatar.cc/300?img=3"
+                        />
+
+                        <t-avatar
+                            :indicator="{
+                            color: 'warning',
+                            label: 14,
+                            position: 'lb'
+                        }"
+                            :radius="4"
+                            :size="4"
+                            src="https://i.pravatar.cc/300?img=2"
+                        />
+                        <t-avatar
+                            :indicator="{
+                            color: 'success',
+                            position: 'rb'
+                        }"
+                            :radius="3"
+                            :size="3"
+                            src="https://i.pravatar.cc/300?img=1"
+                        />
+                        <t-avatar
+                            :indicator="{
+                            color: 'info',
+                            label: 2,
+                            position: 'lt'
+                        }"
+                            :radius="2"
+                            :size="2"
+                            src="https://i.pravatar.cc/300?img=0"
+                        />
+                        <t-avatar
+                            :indicator="{
+                                color: 'danger',
+                                label: 2,
+                                position: 'lb'
+                            }"
+                            :radius="1"
+                            :size="1"
+                        />
+
+                    </div>
+                     <template #js>{{ docSamples.indicator.js }}</template>
+                        <template #template>{{ docSamples.indicator.template }}</template>
+                </t-code-showcase>
+            </grid-section>
+        </template>
+    </app-layout>
 </template>
 
 <script>
-/*Layout*/
-import AppLayout from "@/Layouts/AppLayout";
+/*Main Functions*/
+import {defineComponent} from "vue";
+
 /*Component*/
+import AppLayout from "@/Layouts/AppLayout";
 import GridSection from "@/Layouts/GridSection";
-import TContentCard from "@/Components/Card/TContentCard";
 import TAvatar from "@/Components/Avatar/TAvatar";
 import TAvatarGroup from "@/Components/Avatar/TAvatarGroup";
-import TTable from "@/Components/Table/TTable";
-/*Codehighlighter*/
-import SshPre from "simple-syntax-highlighter";
-import "simple-syntax-highlighter/dist/sshpre.css";
+import TCodeShowcase from "@/Components/Code/TCodeShowcase";
+import {useI18n} from "vue-i18n/dist/vue-i18n.esm-bundler";
 
-export default {
-  name: "Avatar",
-  components: {
-    AppLayout,
-    GridSection,
-    SshPre,
-    TAvatar,
-    TAvatarGroup,
-    TContentCard,
-    TTable
-  },
-  data() {
-    return {
-      sampleCode: {
-        html:
-            '<t-avatar src="/img/samples/dummyAvatar.svg" :size="5" :radius="8" :indicator="{color: \'gradient-red-to-pink\', gradient-direction: \'r\', label: \'5\', position: \'lb\'}" />\n\n' +
-            '<!--For Avatar Group-->\n\n' +
-            '<t-avatar-group>\n' +
-            '    <t-avatar src="/img/samples/dummyAvatar.svg" :size="5" :radius="8"/>\n' +
-            '    <t-avatar src="/img/samples/dummyAvatar.svg" :size="5" :radius="8"/>\n' +
-            '    <t-avatar src="/img/samples/dummyAvatar.svg" :size="5" :radius="8"/>\n' +
-            '</t-avatar-group>',
-        js:
-            'import TAvatar from "@/Components/Avatar/TAvatar";\n' +
-            'import TAvatarGroup from "@/Components/Avatar/TAvatarGroup";";\n\n' +
-            'export default {\n' +
-            '  name: "Avatar",\n' +
-            '  components: {TAvatar, TAvatarGroup},\n' +
-            '  }',
-        table: {
-          header: [
-            {
-              key: "variable",
-              label: "Variable",
-              width: 15
+export default defineComponent({
+    name: "Avatar",
+    components: {
+        AppLayout,
+        GridSection,
+        TAvatar,
+        TAvatarGroup,
+        TCodeShowcase
+    },
+    setup(){
+        /* Multi-language */
+        const { tm } = useI18n({
+            inheritLocale: true,
+            messages: {
+                en: {
+                    pageTitle: 'Avatar',
+                    pageSubTitle: 'User avatars and team members avatar group',
+                    docDefault: 'Default Value',
+                    docDescription: 'Description',
+                    docType: 'Value Type',
+                    docOptions: 'Options',
+                    docSrcDesc: 'The path of the photo.',
+                    docSizeDesc: 'The size of the photo.',
+                    docRadiusDesc: 'It shapes the corners of the avatar.',
+                    docIndicatorDesc: 'It works to show a indicator point near the avatar. You should define the values of the options in this object. Sample: :indicator="{ color: \'success\', label: 2, position: \'lb\' }" ',
+                    docLinkDesc: 'When the user clicks on the avatar, it directs them to the link you want." ',
+                },
+                tr: {
+                    pageTitle: 'Profil Resmi',
+                    pageSubTitle: 'Profil resmi ve ekip üyeleri resimlerinin gösterimi',
+                    docDefault: 'Varsayılan Değer',
+                    docDescription: 'Detay',
+                    docType: 'Değer Türü',
+                    docOptions: 'Alabileceği Değerler',
+                    docSrcDesc: 'Profil fotoğrafının adresi.',
+                    docSizeDesc: 'Profil fotoğrafının büyüklüğü.',
+                    docRadiusDesc: 'Profil resminin köşelerinin ovalliğini kontrol etmenizi sağlar.',
+                    docIndicatorDesc: 'Profil resminin kenarında bildirim simgesi göstermenizi sağlar. Alabileceği değerler listesindeki değerleri bu obje içinde tanımlamanız gereklidir. Örnek: :indicator="{ color: \'success\', label: 2, position: \'lb\' }"',
+                    docLinkDesc: 'Kullanıcının profil resmini tıkladığında istediğin linke yönlenmesini sağlar."',
+                },
             },
-            {
-              key: "type",
-              label: "Value Type"
+        });
+
+        /* Documentation */
+        /* Props Definitions */
+        const docProps = {
+            headers: [
+                { id: 'prop', label: 'Prop' },
+                { id: 'type', label: tm('docType') },
+                { id: 'options', label: tm('docOptions'), colorfulBg: true },
+                { id: 'default', label: tm('docDefault') },
+                { id: 'description', label: tm('docDescription') },
+
+            ],
+            content: [
+                {
+                    id: 'src',
+                    prop: 'src',
+                    type: 'String',
+                    description: tm('docSrcDesc')
+                },
+                {
+                    id: 'size',
+                    prop: 'size',
+                    type: 'Number',
+                    options: ['1', '2', '3', '4', '5', '6', '7', '8'],
+                    default: '3',
+                    description: tm('docSizeDesc')
+                },
+                {
+                    id: 'radius',
+                    prop: 'radius',
+                    type: 'Number',
+                    options: ['0', '1', '2', '3', '4', '5', '6', '7', '8'],
+                    default: '3',
+                    description: tm('docRadiusDesc')
+                },
+                {
+                    id: 'indicator',
+                    prop: 'indicator',
+                    type: 'Object',
+                    options: ['color (success, danger, info, warning, purple, light)', 'label (String)', 'position (lb, rb, lt, rt)'],
+                    description: tm('docIndicatorDesc')
+                },
+                {
+                    id: 'link',
+                    prop: 'link',
+                    type: 'String',
+                    description: tm('docLinkDesc')
+                },
+            ]
+        };
+
+        /* Sample Codes */
+        const docSamples = {
+            simple: {
+                js: 'import TAvatar from \'@/Components/Alert/TAvatar.vue\'\n'+
+                    '\n' +
+                    'export default {\n'+
+                    '    components: { TAvatar },\n'+
+                    '    setup() {\n'+
+                    '    },\n' +
+                    '}',
+                template: '<t-avatar\n' +
+                    '    :radius="3"\n' +
+                    '    src="https://i.pravatar.cc/300?img=0"\n' +
+                    '    >\n' +
+                    '</t-avatar>',
             },
-            {
-              key: "details",
-              label: "Details"
+            group: {
+                js: 'import TAvatar from \'@/Components/Alert/TAvatar.vue\'\n' +
+                    'import TAvatarGroup from \'@/Components/Alert/TAvatarGroup.vue\'\n'+
+                    '\n' +
+                    'export default {\n'+
+                    '    components: { TAvatar, TAvatarGroup },\n'+
+                    '    setup() {\n'+
+                    '    },\n' +
+                    '}',
+                template: '<t-avatar-group>\n\n' +
+                    '    <t-avatar\n' +
+                    '        :radius="8"\n' +
+                    '        src="https://i.pravatar.cc/300?img=0"\n' +
+                    '        link="https://test.com"\n' +
+                    '        >\n' +
+                    '    </t-avatar>\n\n' +
+                    '    <t-avatar\n' +
+                    '        :radius="8"\n' +
+                    '        src="https://i.pravatar.cc/300?img=2"\n' +
+                    '        :link="route(\'profile\')"\n' +
+                    '        >\n' +
+                    '    </t-avatar>\n\n' +
+                    '</t-avatar-group>',
+            },
+            size: {
+                js: 'import TAvatar from \'@/Components/Alert/TAvatar.vue\'\n'+
+                    '\n' +
+                    'export default {\n'+
+                    '    components: { TAvatar },\n'+
+                    '    setup() {\n'+
+                    '    },\n' +
+                    '}',
+                template: '<t-avatar\n' +
+                    '    :size="5"\n' +
+                    '    src="https://i.pravatar.cc/300?img=0"\n' +
+                    '    >\n' +
+                    '</t-avatar>',
+            },
+            indicator: {
+                js: 'import TAvatar from \'@/Components/Alert/TAvatar.vue\'\n'+
+                    '\n' +
+                    'export default {\n'+
+                    '    components: { TAvatar },\n'+
+                    '    setup() {\n'+
+                    '    },\n' +
+                    '}',
+                template: '<t-avatar\n' +
+                    '    :radius="3"\n' +
+                    '    src="https://i.pravatar.cc/300?img=0"\n' +
+                    '    :indicator="{\n' +
+                    '            color: \'success\',\n' +
+                    '            label: 7,\n' +
+                    '            position: \'rt\'\n' +
+                    '        }"\n' +
+                    '    >\n' +
+                    '</t-avatar>',
             }
-          ],
-          content: [
-            {
-              variable: "src",
-              type: "String",
-              details: "Your photo url"
-            },
-            {
-              variable: ":size",
-              type: "Number",
-              details: "<b>Options:</b> 1, 2, 3, 4, 5, 6, 7, 8, 9"
-            },
-            {
-              variable: ":radius",
-              type: "Number",
-              details: "<b>Options:</b> none, 1, 2, 3, 4, 5, 6, 7, 8"
-            },
-            {
-              variable: ":indicator=\"{<br>&nbsp&nbsp&nbsp&nbsp color:&nbsp' ',<br>&nbsp&nbsp&nbsp&nbsp gradient-direction:&nbsp' ',<br>&nbsp&nbsp&nbsp&nbsp label:&nbsp' ',<br>&nbsp&nbsp&nbsp&nbsp position:&nbsp' '<br>}\"",
-              type: "Object",
-              details: "This object have must 3 sub items: color, label and position<br>" +
-                  "<b>Color Options Solid:</b> solid-red, solid-blue, solid-green, solid-yellow, solid-indigo, solid-pink, solid-purple, solid-gray, solid-black, solid-white,<br>" +
-                  "<b>Color Options Light:</b> light-red, light-blue, light-green, light-yellow, light-indigo, light-pink, light-purple, light-gray<br>" +
-                  "<b>Color Options Gradient:</b> gradient-red-to-pink. Red is first color and Pink is second color. You change red end pink with red, blue, green, yellow, indigo, pink, purple and gray)<br>" +
-                  "<b>Color Options Gradient Direction:</b> If you use to the gradient color, you can select gradient's direction. <br><b>Gradient Direction Options:</b> r, l, b, t, tl, bl, tr, br " +
-                  "<b>Default:</b> r (Means: l: left, r: right, b: bottom, t: top)<br>" +
-                  "<b>Label Options:</b> everything you want <br>" +
-                  "<b>Label Position Options:</b> lb, rb, lt, rt <small>(Means: l:left,r:right,b:bottom,t:top)</small>"
-            }
-          ]
-        }
-      }
-    };
-  }
-};
+        };
+        const showcaseTabs = [
+            { id: 'js', label: 'JS', type: 'code', codeLang: 'javascript' },
+            { id: 'template', label: 'Template', type: 'code', codeLang: 'html' },
+            { id: 'props', label: 'Props', type: 'table', table: docProps },
+        ];
+
+        return {tm, docSamples, docProps,showcaseTabs}
+    }
+});
 </script>
-
-<style scoped></style>

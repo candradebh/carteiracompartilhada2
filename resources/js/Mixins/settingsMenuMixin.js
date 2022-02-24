@@ -3,7 +3,7 @@ export const settingsMenuMixin = {
         return {
             menuList: [
                 {
-                    label: "Configurações",
+                    label: "Settings",
                     icon: "cog",
                     link: "settings",
                     linkType: "route",
@@ -11,7 +11,7 @@ export const settingsMenuMixin = {
                     activeKey: ["settings-user"],
                 },
                 {
-                    label: "Usuários",
+                    label: "Users",
                     icon: "",
                     link: "settings-user.index",
                     linkType: "route",
@@ -21,7 +21,7 @@ export const settingsMenuMixin = {
                 {
                     label: "Roles",
                     icon: "",
-                    link: "settings-role",
+                    link: "settings-role.index",
                     linkType: "route",
                     type: "standard",
                     activeKey: ["settings-role"],
@@ -29,7 +29,7 @@ export const settingsMenuMixin = {
                 {
                     label: "Permissions",
                     icon: "",
-                    link: "settings-permission",
+                    link: "settings-permission.index",
                     linkType: "route",
                     type: "standard",
                     activeKey: ["settings-permission"],

@@ -32,6 +32,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Jetstream Guard
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the authentication guard Jetstream will use while
+    | authenticating users. This value should correspond with one of your
+    | guards that is already present in your "auth" configuration file.
+    |
+    */
+
+    'guard' => 'sanctum',
+
+    /*
+    |--------------------------------------------------------------------------
     | Features
     |--------------------------------------------------------------------------
     |
@@ -48,5 +61,18 @@ return [
         Features::teams(['invitations' => true]),
         Features::accountDeletion(),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Profile Photo Disk
+    |--------------------------------------------------------------------------
+    |
+    | This configuration value determines the default disk that will be used
+    | when storing profile photos for your application's users. Typically
+    | this will be the "public" disk but you may adjust this if needed.
+    |
+    */
+
+    'profile_photo_disk' => 'public',
 
 ];

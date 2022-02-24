@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="inputStyle === 'checkbox'">
-      <ul class="flex flex-wrap justify-center gap-2 p-2 bg-white bg-opacity-60 border-opacity-60 border rounded-lg laptop:rounded-full items-center">
+      <ul class="flex flex-wrap justify-center gap-2 p-2 bg-white bg-opacity-60 border-opacity-60 border rounded-lg lg:rounded-full items-center">
         <li
             v-for="(item,index) in radii"
             :key="index"
@@ -38,9 +38,11 @@
 </template>
 
 <script>
+import {defineComponent} from "vue";
+
 import TInputSelect from "@/Components/Form/Inputs/TInputSelect";
 import TBadge from "@/Components/Badge/TBadge";
-export default {
+export default defineComponent({
   name: "TComponentRadiusSelector",
   components: {TBadge, TInputSelect},
   props: {
@@ -70,9 +72,5 @@ export default {
       this.$emit('selected-radius',itemKey)
     }
   }
-}
+})
 </script>
-
-<style scoped>
-
-</style>

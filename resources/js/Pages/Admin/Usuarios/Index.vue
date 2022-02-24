@@ -10,10 +10,8 @@
         </template>
         <!--Content-->
         <template #default>
-            <t-component-color-selector @selected-color="tableColor = $event"/>
 
-            <t-table :color="tableColor" :content="users" :header="header" :pagination="true"
-                     :searchable="['name','email']">
+            <t-table :content="users" :header="tableHeader" :features="tableFeatures">
                 <template #search>
                     <grid-section :col="12" :gap="2">
                         <!--Name-->
@@ -53,29 +51,48 @@ import TInputText from "@/Components/Form/Inputs/TInputText";
 import GridSection from "@/Layouts/GridSection";
 import TButton from "@/Components/Button/TButton";
 import TUserCircleIcon from "@/Components/Icon/TUserCircleIcon";
-import TComponentColorSelector from "@/Components/Misc/TComponentColorSelector";
+import { reactive } from "vue";
 
 export default {
     name: "Users",
     components: {
-        TComponentColorSelector,
         TUserCircleIcon, TButton, GridSection, TInputText, TInputGroup, AppLayout, TTable, TAvatar, SshPre},
     props: ['users'],
-    data() {
-        return {
-            tableColor: 'solid-blue',
-            header: [
-                {label: 'Avatar', key: 'photo', align: 'center', width: '5'},
-                {label: 'Name', key: 'name', align: 'left'},
-                {label: 'Email', key: 'email', align: 'left'}
-            ],
-        }
-    },
-    computed: {
-        selectorInnerStyle() {
-            return 'flex-shrink-0 w-full text-center bg-opacity-50 px-2 py-1 bg-white rounded-full font-semibold z-10'
-        }
-    }
+   setup() {
+    /*Table States*/
+    const tableHeader = reactive([
+      { label: "Ativo", key: "photo", align: "center", width: "5", status: true },
+      { label: "Tipo", key: "name", align: "left", simpleSearchable:true, status: true, sortable: true },
+      { label: "Data", key: "email", align: "left", status: true, sortable: true }
+    ]);
+    const tableFeatures = reactive({
+      table: {
+        design: "elegant",
+        seperatedRow: true,
+        rowBorder: true,
+        zebraRow: true,
+        radius: 3,
+        perPage: 5
+      },
+      pagination: {
+        status: true,
+        radius: 3,
+        range: 5,
+        jump: true,
+      },
+      actions: {
+        status: true,
+        headerText: "Aksiyonlar"
+      },
+      deleteModal: {
+        headerText: "Item's deleting",
+        contentText: "You are going to delete <br><b></b><br>Are you sure ?",
+        icon: "warning"
+      }
+    });
+
+    return { tableHeader, tableFeatures };
+  }
 }
 </script>
 

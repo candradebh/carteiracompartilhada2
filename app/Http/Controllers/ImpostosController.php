@@ -48,7 +48,7 @@ class ImpostosController extends Controller
         $resultadosFii = Resultados::where('tipoativo','Fundos Imobiliários')->where('ano',$buscaAno)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
         $data = compact('buscaAno','anos','resultadosAcoes','resultadosFii','carteiras','posicaoAnual');
 
-        return Inertia::render('Relatorio/Irpf/Index', $data);
+        return Inertia::render('Relatorios/Irpf/Index', $data);
 
         //return view('relatorios.index',$data);
     }

@@ -12,8 +12,7 @@
         <template #default>
             <!-- <t-component-color-selector @selected-color="tableColor = $event"/> -->
 
-            <t-table :color="tableColorMinhasCarteiras" :content="carteiras" :header="headerCarteiras" :pagination="true"
-                     :searchable="['nome','descricao']">
+            <t-table :content="carteiras" :header="tableHeader" :features="tableFeatures">
                 <template #search>
                     <grid-section :col="12" :gap="2">
                         <!--Name-->
@@ -37,22 +36,7 @@
                 </template>
             </t-table>
 
-            <!--Carteiras compartilhadas-->
-            <t-table :color="tableColorMinhasCarteiras" :content="usuario.carteiras_compartilhadas" :header="headerCarteiras" :pagination="true"
-                     :searchable="['nome','descricao']">
-                <template #search>
-                    <grid-section :col="12" :gap="2">
-                        <!--Name-->
-                        <t-input-group class="col-span-12 md:col-span-6" label="Nome">
-                            <t-input-text id="nome"/>
-                        </t-input-group>
-                        <!--Email-->
-                        <t-input-group class="col-span-12 md:col-span-6" label="Descricão">
-                            <t-input-text id="descricao"/>
-                        </t-input-group>
-                    </grid-section>
-                </template>
-            </t-table>
+            
         </template>
     </app-layout>
 </template>
@@ -68,31 +52,48 @@ import TInputText from "@/Components/Form/Inputs/TInputText";
 import GridSection from "@/Layouts/GridSection";
 import TButton from "@/Components/Button/TButton";
 import TUserCircleIcon from "@/Components/Icon/TUserCircleIcon";
-import TComponentColorSelector from "@/Components/Misc/TComponentColorSelector";
+import { reactive } from "vue";
 
 export default {
     name: "Carteiras",
     components: {
-        TComponentColorSelector,
         TUserCircleIcon, TButton, GridSection, TInputText, TInputGroup, AppLayout, TTable, TAvatar, SshPre},
     props: ['users','carteiras','usuario'],
-    data() {
-        return {
-            tableColorMinhasCarteiras: 'solid-blue',
-            tableColorCarteirasCompartilhadas: 'solid-red',
-            headerCarteiras: [
-                {label: 'Nome', key: 'nome', align: 'left', width: '20'},
-                {label: 'Descrição', key: 'descricao', align: 'left' },
-                {label: 'Total', key: 'total', align: 'right', width: '5'},
-            ]
+    setup() {
+    /*Table States*/
+    const tableHeader = reactive([
+      { label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
+      { label: "Tipo", key: "descricao", align: "left", simpleSearchable:true, status: true, sortable: true },
+      { label: "Data", key: "total", align: "left", status: true, sortable: true }
+    ]);
+    const tableFeatures = reactive({
+      table: {
+        design: "elegant",
+        seperatedRow: true,
+        rowBorder: true,
+        zebraRow: true,
+        radius: 3,
+        perPage: 5
+      },
+      pagination: {
+        status: true,
+        radius: 3,
+        range: 5,
+        jump: true,
+      },
+      actions: {
+        status: true,
+        headerText: "Aksiyonlar"
+      },
+      deleteModal: {
+        headerText: "Item's deleting",
+        contentText: "You are going to delete <br><b></b><br>Are you sure ?",
+        icon: "warning"
+      }
+    });
 
-        }
-    },
-    computed: {
-        selectorInnerStyle() {
-            return 'flex-shrink-0 w-full text-center bg-opacity-50 px-2 py-1 bg-white rounded-full font-semibold z-10'
-        }
-    }
+    return { tableHeader, tableFeatures };
+  }
 }
 </script>
 

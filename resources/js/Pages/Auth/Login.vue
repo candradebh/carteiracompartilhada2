@@ -1,41 +1,43 @@
 <template>
+    <Head :title="tm('login')"/>
     <t-login
-        :canResetPassword="canResetPassword"
-        :radius="5"
+        :bg-image="activeBg"
+        color="solid-purple"
         :status="status"
-        bg-image="/img/samples/bgFakurianDesign-nY14Fs8pxT8-unsplash-compressed.jpg"
-        login-button-color="solid-pink"
-        color="gradient-purple-to-pink"
+        :can-reset-password="canResetPassword"
     >
-        <!--Logo-->
-        <template #logo>
-            <inertia-link href="/">
-                <div class="flex flex-col justify-center items-center w-full">
-                    <t-logo class="w-12 h-12"/>
-                    <span class="text-3xl">TailAdmin</span>
-                </div>
-            </inertia-link>
-        </template>
-        <!--Greeting-->
-        <template #greeting>
-            Sign in to your account
-        </template>
     </t-login>
 </template>
 
 <script>
+
+/*Main functions*/
+import {defineComponent} from "vue";
+import { Head } from "@inertiajs/inertia-vue3";
+
+/*Components*/
 import TLogin from "@/Components/Auth/TLogin";
-import TLogo from "@/Components/Icon/TLogo";
 
-export default {
-    components: {
-        TLogo,
-        TLogin,
-    },
+/* Multi language */
+import {useI18n} from "vue-i18n";
+import {authTranslates} from "@/Lang/languages";
 
+export default defineComponent({
     props: {
         canResetPassword: Boolean,
-        status: String
+        status: String,
     },
-}
+    components: {
+        TLogin,
+        Head
+    },
+    setup(){
+        const {t,tm} = useI18n({
+            inheritLocale: true,
+            messages: authTranslates
+        })
+
+        return {t, tm}
+    }
+})
 </script>

@@ -1,64 +1,56 @@
-require('./bootstrap');
+require("./bootstrap");
 
-// Import modules...
-import Vue from 'vue';
-import {App as InertiaApp, plugin as InertiaPlugin} from '@inertiajs/inertia-vue';
-import PortalVue from 'portal-vue';
+import { createApp, h } from "vue";
+import { createInertiaApp } from "@inertiajs/inertia-vue3";
+import { InertiaProgress } from "@inertiajs/progress";
 
-// Fontawesome
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {faCss3, faJs, faVuejs} from "@fortawesome/free-brands-svg-icons";
-import {
-    faRocket,
-    faDotCircle,
-    faWindowRestore,
-    faEdit,
-    faCalendarAlt,
-    faEnvelope,
-    faTasks,
-    faWindowMaximize,
-    faChartBar,
-    faChevronDown,
-    faCode,
-    faAngleDown,
-    faAngleUp,
-    faLayerGroup,
-    faGripHorizontal,
-    faAngleLeft,
-    faClock,
-    faRetweet,
-    faTags,
-    faTv,
-    faPlug,
-    faTable,
-    faShoppingBag,
-    faLiraSign,
-    faTrash,
-    faPlusCircle,
-    faAngleDoubleRight,
-    faCheck, faMinusCircle, faInfo, faSave, faCog
-} from '@fortawesome/free-solid-svg-icons'
+/* FontAwesome */
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faRocket, faDotCircle, faWindowRestore, faSave, faEdit, faJs, faCss3, faInfo, faCalendarAlt, faVuejs, faEnvelope, faTasks, faWindowMaximize, faChartBar, faChevronDown, faCode, faAngleDown, faAngleUp, faChartBar, faLayerGroup, faGripHorizontal, faAngleLeft, faClock, faRetweet, faTags, faTv, faPlug, faTable, faShoppingBag, faLiraSign, faTrash, faPlusCircle, faAngleDoubleRight, faCheck, faMinusCircle, faCog)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+/* Multi-language */
+import { createI18n } from "vue-i18n";
+import generalLangBg from "@/Lang/bg/general_lang_bg";
+import generalLangDe from "@/Lang/de/general_lang_de";
+import generalLangEn from "@/Lang/en/general_lang_en";
+import generalLangFr from "@/Lang/fr/general_lang_fr";
+import generalLangRu from "@/Lang/ru/general_lang_ru";
+import generalLangTr from "@/Lang/tr/general_lang_tr";
+import generalLangZh from "@/Lang/zh/general_lang_zh";
 
+const i18n = createI18n({
+    legacy: false,
+    locale: "en",
+    fallbackLocale: "en",
+    fallbackRoot: "en",
+    messages: {
+        bg: generalLangBg,
+        de: generalLangDe,
+        en: generalLangEn,
+        fr: generalLangFr,
+        ru: generalLangRu,
+        tr: generalLangTr,
+        zh: generalLangZh,
+    },
+});
 
-Vue.mixin({methods: {route}});
-Vue.use(InertiaPlugin);
-Vue.use(PortalVue);
+/* Highlighter */
+import VueHighlightJS from 'vue3-highlightjs'
 
-Vue.config.productionTip = false
+const appName =
+    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => require(`./Pages/${name}.vue`),
+    setup({ el, app, props, plugin }) {
+        return createApp({ render: () => h(app, props) })
+            .use(plugin)
+            .use(i18n)
+            .use(VueHighlightJS)
+            .component("icon", FontAwesomeIcon)
+            .mixin({ methods: { route } })
+            .mount(el);
+    },
+});
 
-const app = document.getElementById('app');
-
-new Vue({
-    render: (h) =>
-        h(InertiaApp, {
-            props: {
-                initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: (name) => require(`./Pages/${name}`).default,
-            },
-        })
-}).$mount(app);
+InertiaProgress.init({ color: "#4B5563" });
