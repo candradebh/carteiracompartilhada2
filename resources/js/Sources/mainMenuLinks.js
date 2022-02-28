@@ -45,8 +45,8 @@ export default function ({roles,permissions}) {
                 visibleFor: roles.includes('Super Admin'),
             },
             {   
-                id: "carteiras",
-                label: tm("carteiras"),
+                id: "investimentos",
+                label: tm("investimentos"),
                 icon: "tv",
                 link: null,
                 type: "dropdown",

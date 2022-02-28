@@ -26,7 +26,8 @@ const mainMenuLangEn = {
     componentTableJson: "Table(JSON)",
     componentTableBackend: "Table(BackEnd)",
     componentTooltip: "Tooltip",
-    importar: "Importar",
+    importar: "Importer",
+    investimentos: "Investments",
     irpf: "IRPF",
     layoutElements: "Layout Elements",
     layoutStructure: "Layout Structure",
@@ -46,7 +47,7 @@ const mainMenuLangEn = {
     externalLaravelDocument: "Laravel Document",
     footerHelp: "Help",
     footerSettings: "Settings",
-    relatorios: "Relatórios"
+    relatorios: "Reports"
 };
 
 export default mainMenuLangEn;
