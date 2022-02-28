@@ -42,11 +42,12 @@ class ImpostosController extends Controller
         $buscaAno = $request->get('ano');
         if($buscaAno==null){
             $buscaAno = date('Y');
+            $ano = $buscaAno;
         }
         $posicaoAnual = CarteiraAnualIrpf::with('ativo')->where('user_id',auth()->user()->id)->where('ano',$buscaAno)->get();
         $resultadosAcoes = Resultados::where('tipoativo','Ações')->where('ano',$buscaAno)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
         $resultadosFii = Resultados::where('tipoativo','Fundos Imobiliários')->where('ano',$buscaAno)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
-        $data = compact('buscaAno','anos','resultadosAcoes','resultadosFii','carteiras','posicaoAnual');
+        $data = compact('buscaAno','anos','resultadosAcoes','resultadosFii','carteiras','posicaoAnual','ano');
 
         return Inertia::render('Relatorios/Irpf/Index', $data);
 

@@ -26,24 +26,25 @@
                 </t-form-section>
             </t-form-content>
 
-            <table class="table w-full border-collapse">
-                <thead>
-                    <tr class="bg-red-200">
-                        <th v-for="item in headerPosicaoAtual" :key="item.id"> {{item.text}} </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in posicaoAnual" :key="item.ativo.ticker">
-                        <td>{{item.ativo.ticker}}</td>
-                        <td>{{item.ativo.cnpj}}</td>
-                        <td>{{item.quantidade}}</td>
-                    </tr>
+            <div class="overflow-x-auto scrollbar scrollbar-thin transition-size-medium" >
+                <table class="table-container">
+                    <thead>
+                        <tr>
+                            <td  v-for="item in tableHeader" :key="item.id"> {{item.label}} </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in posicaoAnual" :key="item.ativo.ticker" class="table-content-row table-content-zebra-row">
+                            <td class="table-content-cell">{{item.ativo.ticker}}</td>
+                            <td class="table-content-cell">{{item.ativo.cnpj}}</td>
+                            <td class="table-content-cell">{{item.quantidade}}</td>
+                        </tr>
 
-                </tbody>
-            </table>
-
-            <t-table :content="resultadosAcoes" :header="tableHeader" :features="tableFeatures">
-            </t-table>
+                    </tbody>
+                </table>
+            
+            </div>
+           
         </template>
     </app-layout>
 </template>
@@ -64,7 +65,7 @@ export default {
     components: {
         TFormSection,TFormContent,
         TButton, GridSection, AppLayout, TTable ,TInputGroup , TInputSelect },
-    props: ['resultadosAcoes','resultadosFii', 'posicaoAnual', 'anos', 'buscaAno'],
+    props: ['resultadosAcoes','resultadosFii', 'posicaoAnual', 'anos', 'buscaAno','ano'],
     data() {
       return {
          form: this.$inertia.form({
@@ -76,9 +77,9 @@ export default {
     setup() {
     /*Table States*/
     const tableHeader = reactive([
-      { label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
-      { label: "Tipo", key: "descricao", align: "left", simpleSearchable:true, status: true, sortable: true },
-      { label: "Data", key: "total", align: "left", status: true, sortable: true }
+      { id: "ativo", label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
+      { id: "cnpj", label: "Tipo", key: "cnpj", align: "left", simpleSearchable:true, status: true, sortable: true },
+      { id: "total", label: "Total", key: "total", align: "left", status: true, sortable: true }
     ]);
     const tableFeatures = reactive({
       table: {
@@ -109,7 +110,6 @@ export default {
     return { tableHeader, tableFeatures };
   },
   methods: {
-
         save() {
             this.form.get(route('relatorio.irpf.index'), {
                 errorBag: 'customer',
