@@ -11,7 +11,7 @@
 
         <!--Content-->
         <template #default>
-            <t-form-content @submitted="save">
+            <t-form-content :reset-button="false" :submit-button="true" @submitted="save">
                   <t-form-section
                     title="Escolha o ano de referência">
                     <t-input-group class="col-span-12 md:col-span-6" label="Ano" labelFor="ano">
