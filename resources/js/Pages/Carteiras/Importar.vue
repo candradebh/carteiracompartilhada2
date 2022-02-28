@@ -107,7 +107,7 @@ import TCheckIcon from "@/Components/Icon/TCheckIcon";
 import TXIcon from "@/Components/Icon/TXIcon";
 
 export default {
-  name: "ImportarNotas",
+  name: "Importar",
   components: {
     TBadge,TInputSelect,TCheckIcon,TFormContent, TInputGroup, TInputText,
     AppLayout, TButton, TFormSection,TInputTextArea,TInputRadioButton, TInputFile,TXIcon

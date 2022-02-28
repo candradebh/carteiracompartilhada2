@@ -65,12 +65,12 @@ export default {
     components: {
         TFormSection,TFormContent,
         TButton, GridSection, AppLayout, TTable ,TInputGroup , TInputSelect },
-    props: ['resultadosAcoes','resultadosFii', 'posicaoAnual', 'anos', 'buscaAno','ano'],
+    props: ['resultadosAcoes','resultadosFii', 'posicaoAnual', 'anos', 'ano'],
     data() {
       return {
          form: this.$inertia.form({
                 _method: 'GET',
-                ano: parseInt(this.buscaAno)
+                ano: parseInt(this.ano)
             }),
       }
     },
@@ -116,7 +116,7 @@ export default {
                 preserveScroll: true,
             });
             this.loading = true;
-            this.form.ano = parseInt(this.buscaAno);
+            this.form.ano = parseInt(this.ano);
         }
     },
    

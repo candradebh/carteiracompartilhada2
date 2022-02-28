@@ -1,6 +1,7 @@
 <?php
 
 use App\DataGrid\CarteiraDataGrid;
+use App\Http\Controllers\ImportarCorretagensController;
 use App\Http\Controllers\ImpostosController;
 use App\Models\Carteira;
 use App\Models\Corretoras;

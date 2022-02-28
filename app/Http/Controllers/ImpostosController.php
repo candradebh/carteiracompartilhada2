@@ -39,15 +39,15 @@ class ImpostosController extends Controller
             $anos[] = ['ano'=>$key,'ordens'=>$value];
         }
 
-        $buscaAno = $request->get('ano');
-        if($buscaAno==null){
-            $buscaAno = date('Y');
-            $ano = $buscaAno;
+        $ano = $request->get('ano');
+        if($ano==null){
+            $ano = $anos[sizeof($anos)-1]['ano'];
         }
-        $posicaoAnual = CarteiraAnualIrpf::with('ativo')->where('user_id',auth()->user()->id)->where('ano',$buscaAno)->get();
-        $resultadosAcoes = Resultados::where('tipoativo','Ações')->where('ano',$buscaAno)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
-        $resultadosFii = Resultados::where('tipoativo','Fundos Imobiliários')->where('ano',$buscaAno)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
-        $data = compact('buscaAno','anos','resultadosAcoes','resultadosFii','carteiras','posicaoAnual','ano');
+
+        $posicaoAnual = CarteiraAnualIrpf::with('ativo')->where('user_id',auth()->user()->id)->where('ano',$ano)->get();
+        $resultadosAcoes = Resultados::where('tipoativo','Ações')->where('ano',$ano)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
+        $resultadosFii = Resultados::where('tipoativo','Fundos Imobiliários')->where('ano',$ano)->where('user_id',auth()->user()->id)->orderBy('mes','asc')->get();
+        $data = compact('ano','anos','resultadosAcoes','resultadosFii','carteiras','posicaoAnual','anosComOrdens');
 
         return Inertia::render('Relatorios/Irpf/Index', $data);
 

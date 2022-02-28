@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\User;
 use App\Models\Ativos;
 use App\Models\Carteira;
@@ -11,8 +10,8 @@ use App\Models\Operacoes;
 use App\Models\Ordens;
 use App\Models\Resultados;
 use App\Models\CarteiraAnualIrpf;
-use App\Importadores\Notas\ImportarNotasBancoInterService;
-use App\Importadores\Notas\ImportarNotasBancoXpService;
+use App\Importadores\ImportarNotasBancoInterService;
+use App\Importadores\ImportarNotasBancoXpService;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -40,9 +39,7 @@ class ImportarCorretagensController extends Controller
 
     public function postUploadForm(Request $request)
     {
-
-        //dd($request->all());
-
+        
         //dados para importacao
         $carteiraid = 1; //$request->get('carteira_id');
         $corretora_id = 1;//$request->get('corretora_id');
@@ -60,7 +57,7 @@ class ImportarCorretagensController extends Controller
         if ($corretora != null && $corretora->realizaimportacao == 1) {
 
             if ($nomeDiretorio == "inter") {
-                $importarOrdens = new ImportarNotasBancoInterService(auth()->user(), $carteiraid, $corretora);
+                $importarOrdens = new ImportarNotasBancoInterService (auth()->user(), $carteiraid, $corretora);
             } elseif ($nomeDiretorio == "xpinvestimentos") {
                 $importarOrdens = new ImportarNotasBancoXpService(auth()->user(), $carteiraid, $corretora);
             }

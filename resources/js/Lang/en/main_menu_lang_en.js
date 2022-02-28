@@ -5,6 +5,7 @@ const mainMenuLangEn = {
     authForgotPassword: "Forgot Password",
     authLockScreen: "Lock Screen",
     authProfile: "Profile",
+    carteiras: "Wallets",
     components: "Components",
     componentAlert: "Alert",
     componentAvatar: "Avatar",
@@ -25,6 +26,8 @@ const mainMenuLangEn = {
     componentTableJson: "Table(JSON)",
     componentTableBackend: "Table(BackEnd)",
     componentTooltip: "Tooltip",
+    importar: "Importar",
+    irpf: "IRPF",
     layoutElements: "Layout Elements",
     layoutStructure: "Layout Structure",
     layoutGrid: "Grid",
@@ -42,7 +45,8 @@ const mainMenuLangEn = {
     externalInertiaDocument: "Inertiajs Document",
     externalLaravelDocument: "Laravel Document",
     footerHelp: "Help",
-    footerSettings: "Settings"
+    footerSettings: "Settings",
+    relatorios: "Relatórios"
 };
 
 export default mainMenuLangEn;

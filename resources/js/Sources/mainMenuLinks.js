@@ -46,21 +46,21 @@ export default function ({roles,permissions}) {
             },
             {   
                 id: "carteiras",
-                label: "Carteiras",
+                label: tm("carteiras"),
                 icon: "tv",
                 link: null,
                 type: "dropdown",
                 items: [
                     {
                         id: "carteiras",
-                        label: "Carteiras",
+                        label: tm("carteiras"),
                         icon: null,
                         link: "carteiras.index",
                         type: "route",
                     },
                     {   
                         id: "importar",
-                        label: "Importar",
+                        label: tm("importar"),
                         icon: null,
                         link: "carteiras.importar",
                         type: "route",
@@ -94,14 +94,14 @@ export default function ({roles,permissions}) {
             },
             {   
                 id: "relatorios",
-                label: "Relatórios",
+                label: tm("relatorios"),
                 icon: "window-maximize",
                 link: null,
                 type: "dropdown",
                 items: [
                     {   
                         id: "irpf", 
-                        label: "IRPF",
+                        label: tm("irpf"),
                         icon: null,
                         link: "relatorio.irpf.index",
                         type: "route",
