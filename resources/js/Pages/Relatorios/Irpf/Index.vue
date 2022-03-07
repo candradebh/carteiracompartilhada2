@@ -37,12 +37,11 @@
                         <tr v-for="item in posicaoAnual" :key="item.ativo.ticker" class="table-content-row table-content-zebra-row">
                             <td class="table-content-cell">{{item.ativo.ticker}}</td>
                             <td class="table-content-cell">{{item.ativo.cnpj}}</td>
+                            <td class="table-content-cell">{{item.precomedio}}</td>
                             <td class="table-content-cell">{{item.quantidade}}</td>
                         </tr>
-
                     </tbody>
                 </table>
-            
             </div>
            
         </template>
@@ -79,7 +78,8 @@ export default {
     const tableHeader = reactive([
       { id: "ativo", label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
       { id: "cnpj", label: "Tipo", key: "cnpj", align: "left", simpleSearchable:true, status: true, sortable: true },
-      { id: "total", label: "Total", key: "total", align: "left", status: true, sortable: true }
+      { id: "precomedio", label: "Preço Médio", key: "precomedio", align: "right", simpleSearchable:true, status: true, sortable: true },
+      { id: "quantidade", label: "Quantidade", key: "quantidade", align: "center", status: true, sortable: true }
     ]);
     const tableFeatures = reactive({
       table: {
