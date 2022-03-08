@@ -23,6 +23,9 @@
                         </t-input-group>
                     </grid-section>
                 </template>
+                <template #ativo="cellKey">
+                    {{cellKey.props.ativo.ticker}}
+                </template>
                 <template #right>
                     <t-button :link="route('form-structure')" :radius="8">
                         <t-user-circle-icon class="w-6 h-6"/>
@@ -57,9 +60,9 @@ export default {
      setup() {
     /*Table States*/
     const tableHeader = reactive([
-      { label: "Ativo", key: "ativo_id", align: "center", width: "5", status: true },
+      { label: "Ativo", key: "ativo", align: "left", width: "5", status: true },
       { label: "Tipo", key: "tipooperacao", align: "left", simpleSearchable:true, status: true, sortable: true },
-      { label: "Data", key: "data", align: "left", status: true, sortable: true }
+      { label: "Data", key: "data", align: "center", status: true, sortable: true }
     ]);
     const tableFeatures = reactive({
       table: {

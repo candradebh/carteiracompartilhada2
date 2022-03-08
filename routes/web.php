@@ -8,6 +8,7 @@ use App\Models\Corretoras;
 use App\Models\Operacoes;
 use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
@@ -95,6 +96,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
                 'usuario' => User::where('id', auth()->user()->id)->with('carteiras', 'carteirasCompartilhadas')->first(),
             ]);
         })->name('carteiras.index');
+
+        Route::get('show', function (Request $request, $id) {
+            return Inertia::render('Carteiras/Show', [
+                'carteiras' => Carteira::where('user_id',auth()->user()->id)->where('carteira_id',$id)->with('ativos')->first()
+            ]);
+        })->name('carteiras.show');
 
         Route::get('importar', function () {
             return Inertia::render('Carteiras/Importar', [

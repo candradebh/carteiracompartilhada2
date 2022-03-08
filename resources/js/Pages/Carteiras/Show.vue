@@ -2,7 +2,7 @@
     <app-layout>
         <!--Header-->
         <template #header>
-            Minhas Carteiras
+            Carteira
         </template>
         <!--Subheader-->
         <template #subHeader>
@@ -12,57 +12,27 @@
         <template #default>
             <!-- <t-component-color-selector @selected-color="tableColor = $event"/> -->
 
-            <data-table
-                  :config="{
-                      url: 'carteiras/all?page=1'
-                  }"
-                  
-        :columns="[
-        {
-        label: 'ID',
-        column: 'id',
-        show: true,
-            sort:{
-              sortable: false,
-              sortColumn: 'id',
-
-            },
-
-       },
-        {
-        label: 'Title',
-        column: 'title',
-         show: true,
-            sort:{
-             sortable: true,
-             sortColumn: 'title',
-             sortDir: 'asc',
-            },
-       },
-       {
-        label: 'CreatedAt',
-        column: 'created_at',
-        show: true,
-             sort:{
-                sortable: true,
-                sortColumn: 'created_at',
-                sortDir: 'asc',
-             },
-       },
-       {
-        label: 'UpdatedAt',
-        column: 'updated_at',
-        show: true,
-             sort:{
-                sortable: true,
-                sortColumn: 'updated_at',
-                sortDir: 'asc',
-             },
-       },
-        ]
-        "
-
-    ></data-table>
+            <t-table :content="carteiras" :header="tableHeader" :features="tableFeatures">
+                <template #search>
+                    <grid-section :col="12" :gap="2">
+                        <!--Name-->
+                        <t-input-group class="col-span-12 md:col-span-6" label="Nome">
+                            <t-input-text id="nome"/>
+                        </t-input-group>
+                        <!--Email-->
+                        <t-input-group class="col-span-12 md:col-span-6" label="Descricão">
+                            <t-input-text id="descricao"/>
+                        </t-input-group>
+                    </grid-section>
+                </template>
+                <template #right>
+                    <t-button :link="route('carteiras.show', content.id)" :radius="8">
+                        <t-user-circle-icon class="w-6 h-6"/>
+                        Abrir
+                    </t-button>
+                </template>
+                
+            </t-table>
 
             
         </template>

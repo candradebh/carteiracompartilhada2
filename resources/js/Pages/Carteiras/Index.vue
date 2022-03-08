@@ -25,15 +25,12 @@
                         </t-input-group>
                     </grid-section>
                 </template>
-                <template #right>
-                    <t-button :link="route('carteiras.show')" :radius="8">
-                        <t-user-circle-icon class="w-6 h-6"/>
-                        Abrir
+                <template #id="cellKey">
+                    <t-button :link="route('carteiras.show',{id:cellKey.props.id})" :radius="8" >
+                        Abrir 
                     </t-button>
                 </template>
-                <template #photo="{props}">
-                        <t-avatar :link="props.photo" :radius="8" :size="3"/>
-                </template>
+               
             </t-table>
 
             
@@ -64,7 +61,8 @@ export default {
     const tableHeader = reactive([
       { label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
       { label: "Tipo", key: "descricao", align: "left", simpleSearchable:true, status: true, sortable: true },
-      { label: "Data", key: "total", align: "left", status: true, sortable: true }
+      { label: "Data", key: "total", align: "left", status: true, sortable: true },
+      { label: "ID", key: "id" , align: "right", status: true, sortable: false }
     ]);
     const tableFeatures = reactive({
       table: {
