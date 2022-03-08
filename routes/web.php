@@ -97,9 +97,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             ]);
         })->name('carteiras.index');
 
-        Route::get('show', function (Request $request, $id) {
+        Route::get('show/{id}', function (Request $request, $id) {
             return Inertia::render('Carteiras/Show', [
-                'carteiras' => Carteira::where('user_id',auth()->user()->id)->where('carteira_id',$id)->with('ativos')->first()
+                'carteiras' => Carteira::where('user_id',auth()->user()->id)->where('id',$id)->with('ativos')->first()
             ]);
         })->name('carteiras.show');
 

@@ -18,7 +18,7 @@ class CorretoraSeeder extends Seeder
         $data = [
             ['nome'=>'Inter','realizaimportacao'=>1,'cambio'=>0 ],
             ['nome'=>'Xp Investimentos','realizaimportacao'=>1 ,'cambio'=>0 ],
-            ['nome'=>'Avenue','realizaimportacao'=>1 ,'cambio'=>1 ],
+            ['nome'=>'Avenue','realizaimportacao'=>0 ,'cambio'=>1 ],
         ];
 
         DB::table('corretoras')->insert($data);

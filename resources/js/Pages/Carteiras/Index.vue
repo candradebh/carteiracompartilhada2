@@ -26,7 +26,7 @@
                     </grid-section>
                 </template>
                 <template #id="cellKey">
-                    <t-button :link="route('carteiras.show',{id:cellKey.props.id})" :radius="8" >
+                    <t-button :link="route('carteiras.show',{id:cellKey.props.id})" :type="'route'" :radius="8" >
                         Abrir 
                     </t-button>
                 </template>

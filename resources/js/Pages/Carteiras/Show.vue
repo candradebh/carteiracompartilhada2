@@ -2,17 +2,17 @@
     <app-layout>
         <!--Header-->
         <template #header>
-            Carteira
+            {{carteiras.nome}}
         </template>
         <!--Subheader-->
         <template #subHeader>
-            Personalise sua tabela
+             {{carteiras.descricao}}
         </template>
         <!--Content-->
         <template #default>
             <!-- <t-component-color-selector @selected-color="tableColor = $event"/> -->
 
-            <t-table :content="carteiras" :header="tableHeader" :features="tableFeatures">
+            <t-table :content="carteiras.ativos" :header="tableHeader" :features="tableFeatures">
                 <template #search>
                     <grid-section :col="12" :gap="2">
                         <!--Name-->
@@ -20,18 +20,16 @@
                             <t-input-text id="nome"/>
                         </t-input-group>
                         <!--Email-->
-                        <t-input-group class="col-span-12 md:col-span-6" label="Descricão">
-                            <t-input-text id="descricao"/>
+                        <t-input-group class="col-span-12 md:col-span-6" label="Categoria">
+                            <t-input-text id="categoria"/>
                         </t-input-group>
                     </grid-section>
                 </template>
-                <template #right>
-                    <t-button :link="route('carteiras.show', content.id)" :radius="8">
-                        <t-user-circle-icon class="w-6 h-6"/>
-                        Abrir
-                    </t-button>
+
+                <template>
+                  <td>{{cellKey.props.quantidade}}</td>
+                  <td>{{cellKey.props.total}}</td>
                 </template>
-                
             </t-table>
 
             
@@ -53,16 +51,18 @@ import TUserCircleIcon from "@/Components/Icon/TUserCircleIcon";
 import { reactive } from "vue";
 
 export default {
-    name: "Carteiras",
+    name: "ShowCarteira",
     components: {
         TUserCircleIcon, TButton, GridSection, TInputText, TInputGroup, AppLayout, TTable, TAvatar, SshPre},
     props: ['users','carteiras','usuario'],
     setup() {
     /*Table States*/
     const tableHeader = reactive([
-      { label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
-      { label: "Tipo", key: "descricao", align: "left", simpleSearchable:true, status: true, sortable: true },
-      { label: "Data", key: "total", align: "left", status: true, sortable: true }
+      { label: "Ticker", key: "ticker", align: "center",  simpleSearchable:true, status: true, sortable: true },
+      { label: "Categoria", key  : "categoria", align: "left", simpleSearchable:true, status: true, sortable: true },
+      { label: "Cotação", key: "cotacao", align: "left", status: true, sortable: false },
+      { label: "Quantidade", key: "quantidade", id: "quantidade", align: "center", status: true, sortable: false },
+      { label: "Total", key: "total", id: "total", align: "right", status: true, sortable: false }
     ]);
     const tableFeatures = reactive({
       table: {
