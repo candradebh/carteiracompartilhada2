@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\CarteiraAnualIrpf;
+use App\Observers\IrpfObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
+    protected $observers = [
+        CarteiraAnualIrpf::class => [IrpfObserver::class],
+    ];
+
     /**
      * Register any events for your application.
      *
@@ -27,6 +33,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        CarteiraAnualIrpf::observe(IrpfObserver::class);
     }
 }

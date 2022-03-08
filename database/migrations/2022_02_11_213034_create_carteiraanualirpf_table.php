@@ -26,6 +26,8 @@ class CreateCarteiraanualirpfTable extends Migration
                     ->references('id')
                     ->on('ativos')
                     ->onDelete('cascade');
+            $table->string('ticker')->nullable();
+            $table->string('cnpj')->nullable();
             $table->bigInteger('quantidade')->default(0);
             $table->double('precomedio')->default(0.0);
             $table->double('total')->default(0.0);

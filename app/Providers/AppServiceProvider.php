@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\CarteiraAnualIrpf;
+use App\Observers\IrpfObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +30,8 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {   
+
         //Max key length error fix
         Schema::defaultStringLength(191);
 

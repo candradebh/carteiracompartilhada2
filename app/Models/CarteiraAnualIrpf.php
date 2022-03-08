@@ -8,7 +8,7 @@ class CarteiraAnualIrpf extends Model
 {
     //carteiraanualirpf
     protected $table = 'carteiraanualirpf';
-    protected $fillable = ['ano','user_id','ativo_id','quantidade','precomedio','total'];
+    protected $fillable = ['ano','user_id','ativo_id','ticker','cnpj','quantidade','precomedio','total'];
 
     public function user()
     {

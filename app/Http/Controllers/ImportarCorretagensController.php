@@ -39,6 +39,7 @@ class ImportarCorretagensController extends Controller
 
     public function postUploadForm(Request $request)
     {
+        ini_set('max_execution_time', 180);    
         
         //dados para importacao
         $carteiraid = 1; //$request->get('carteira_id');
