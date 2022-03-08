@@ -17,7 +17,8 @@ class IrpfObserver
      * @return void
      */
     public function created(CarteiraAnualIrpf $carteiraAnualIrpf)
-    {
+    {   
+        //dd($carteiraAnualIrpf->ativo->ticker);
         $carteiraAnualIrpf->ticker = $carteiraAnualIrpf->ativo->ticker;
         $carteiraAnualIrpf->cnpj = $carteiraAnualIrpf->ativo->cnpj;
         $carteiraAnualIrpf->total = $carteiraAnualIrpf->quantidade * $carteiraAnualIrpf->precomedio;
@@ -32,10 +33,7 @@ class IrpfObserver
      */
     public function updated(CarteiraAnualIrpf $carteiraAnualIrpf)
     {
-        $carteiraAnualIrpf->ticker = $carteiraAnualIrpf->ativo->ticker;
-        $carteiraAnualIrpf->cnpj = $carteiraAnualIrpf->ativo->cnpj;
-        $carteiraAnualIrpf->total = $carteiraAnualIrpf->quantidade * $carteiraAnualIrpf->precomedio;
-        $carteiraAnualIrpf->save();
+        
     }
 
     /**

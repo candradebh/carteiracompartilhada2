@@ -26,23 +26,12 @@
                 </t-form-section>
             </t-form-content>
 
-            <div class="overflow-x-auto scrollbar scrollbar-thin transition-size-medium" >
-                <table class="table-container">
-                    <thead>
-                        <tr>
-                            <td  v-for="item in tableHeader" :key="item.id"> {{item.label}} </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in posicaoAnual" :key="item.ativo.ticker" class="table-content-row table-content-zebra-row">
-                            <td class="table-content-cell">{{item.ticker}}</td>
-                            <td class="table-content-cell">{{item.cnpj}}</td>
-                            <td class="table-content-cell">{{item.precomedio}}</td>
-                            <td class="table-content-cell">{{item.quantidade}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <t-table :content="posicaoAnual" :header="tableHeader" :features="tableFeatures">
+            </t-table>
+
+            <t-table :content="resultadosAcoes" :header="tableHeaderAcoes" :features="tableFeatures">
+            </t-table>
+            
            
         </template>
     </app-layout>
@@ -76,10 +65,18 @@ export default {
     setup() {
     /*Table States*/
     const tableHeader = reactive([
-      { id: "ativo", label: "Ativo", key: "nome", align: "center",  simpleSearchable:true, status: true, sortable: true },
+      { id: "ticker", label: "Ativo", key: "ticker", align: "center",  simpleSearchable:true, status: true, sortable: true },
       { id: "cnpj", label: "CNPJ", key: "cnpj", align: "left", simpleSearchable:true, status: true, sortable: true },
-      { id: "precomedio", label: "Preço Médio", key: "precomedio", align: "right", simpleSearchable:true, status: true, sortable: true },
-      { id: "quantidade", label: "Quantidade", key: "quantidade", align: "center", status: true, sortable: true }
+      { id: "precomedio", label: "Preço Médio", key: "precomedio", align: "right",  status: true, sortable: true },
+      { id: "quantidade", label: "Quantidade", key: "quantidade", align: "center", status: true, sortable: true },
+      { id: "total", label: "ToTal", key: "total", align: "right", status: true, sortable: true }
+    ]);
+    const tableHeaderAcoes = reactive([
+      { id: "mes", label: "mes", key: "mes", align: "center",   status: true, sortable: true },
+      { id: "compras", label: "compras", key: "compras", align: "left", status: true, sortable: true },
+      { id: "vendas", label: "vendas", key: "vendas", align: "right",  status: true, sortable: true },
+      { id: "resultado", label: "resultado", key: "resultado", align: "center", status: true, sortable: true },
+      { id: "prejuizoacumulado", label: "prejuizoacumulado", key: "prejuizoacumulado", align: "right", status: true, sortable: true }
     ]);
     const tableFeatures = reactive({
       table: {
@@ -107,7 +104,7 @@ export default {
       }
     });
 
-    return { tableHeader, tableFeatures };
+    return { tableHeader,tableHeaderAcoes, tableFeatures };
   },
   methods: {
         save() {
