@@ -42,8 +42,8 @@ class ImportarCorretagensController extends Controller
         ini_set('max_execution_time', 120);    
         
         //dados para importacao
-        $carteiraid = 1; //$request->get('carteira_id');
-        $corretora_id = 1;//$request->get('corretora_id');
+        $carteiraid = 2; //$request->get('carteira_id');
+        $corretora_id = 2;//$request->get('corretora_id');
         $tipoImportacao = "todos";//$request->get('tipo');
 
         $corretora = Corretoras::find($corretora_id);
@@ -73,12 +73,13 @@ class ImportarCorretagensController extends Controller
             //apagar as ordens importadas por arquivo para reimporta-las novamente
             DB::table('ordens')->where('carteira_id', $carteiraid)->where('corretora_id',$corretora_id)->where('origem', 'ARQUIVO')->delete();
 
+            
             //lê todosos arquivos do diretorio da corretora
             $importarOrdens->getNotasCorretagem();
-
+            
             // lê o conteudos dos arquivos
             $importarOrdens->lerNotas();
-
+            //dd($importarOrdens);
 
         } else {
 
@@ -152,12 +153,13 @@ class ImportarCorretagensController extends Controller
 
         // lê as ordens das notas lidas
         $importarOrdens->obterOrdensDasNotas();
+        
 
         // grava isso no banco de dados se não tiver gravado
         $importarOrdens->gravarOrdensBanco();
 
         $this->processarPM(true, $request->user()->id);
-        //dd($ordens);
+        
 
         $this->calcularResultadosAcoes($request->user()->id);
 
@@ -331,6 +333,9 @@ class ImportarCorretagensController extends Controller
                 $stringOperacao .= $totalOrdemVenda . "<br>";
 
                 //preco medio da venda
+                if($ordem->quantidade==0){
+                    dd($ordem);
+                }
                 $stringOperacao .= "Preco medio da venda é  $totalOrdemVenda / $ordem->quantidade  = ";
                 $precoMedioVendaPorAcao = $totalOrdemVenda / $ordem->quantidade;
                 $stringOperacao .= $precoMedioVendaPorAcao . "<br>";

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Importadores;
 
 
@@ -30,19 +31,21 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                     //dd($page->getTextArray());
                     //echo nl2br($page->getText());
                     $lines = explode("\n", $page->getText());
+                    $dataNota = $this->getDataPregao($lines);
 
-                    $ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
-
+                    if ($dataNota == "31/05/2019") {
+                        $ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
+                        dd($ordensImportadas);
+                    }
                     //$ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
-                    if($p == (sizeof($pdf->getPages())-1)){
+                    if ($p == (sizeof($pdf->getPages()) - 1)) {
                         $resumo = $this->getRodape($lines);
                     }
 
                     $nota = [
-                        'data' => $this->getDataPregao($lines),
+                        'data' => $dataNota,
                         'path' => $file,
                     ];
-
                 }
                 $nota['ordens'] = $ordensImportadas;
                 $nota['resumo'] = $resumo;
@@ -57,101 +60,111 @@ class ImportarNotasBancoXpService extends ImportarNotasService
 
     public function getOrdens($lines, $p_ordens)
     {
-
+        $itemDebugar = false;
         $ordens = $p_ordens;
         $linhaOrdem = false;
+        $itens = [];
+        $item = 0;
+        for ($i = 0; $i < sizeof($lines); $i++) {
 
-        $item = 1;
-        foreach ($lines as $n => $line) {
+            $linha = $this->normalizaLinha($lines[$i]);
+            echo "<br>linha = ".$linha."";
 
-            $linha = $this->normalizaLinha($line);
-
-            //echo var_dump($linha)."<br>";
-
+            //encontrei a linha das ordens com valores    
             if ($linha == "1-BOVESPA") {
-                $item = 0;
                 $item++;
                 $linhaOrdem = true;
                 $itens[] = $linha;
                 continue;
-                //dd($linha);
             }
-            if ($linhaOrdem) {
 
-                //tipo da ordem
+            //aqui eu navego na proxima informacao     
+            if ($linhaOrdem) {
+                
+                echo "<br>item = $item | linhadaordem = $linhaOrdem | sizeof = ".sizeof($itens)." | <br>";
+                if ($linha == "BANCOPANPN") {
+                    $itemDebugar = true;
+                }
+                //tipo da ordem V ou C
                 if ($item == 1 && (substr($linha, 0, 1) == "C" || substr($linha, 0, 1) == "V")) {
                     $tipo = substr($linha, 0, 1);
                     $itens[] = $tipo;
                     $item++;
                     continue;
-
                 }
 
+                //ticker
                 if ($item == 2) {
                     $itens[] = $linha;
                     $item++;
                     continue;
                 }
 
+                //NM ou EJ ou bla
                 if ($item == 3) {
+                    $itens[] = $linha;
                     $item++;
-                    if (intval($linha) != 0) {
-                        $itens[] = "";
-                    } else {
-                        $itens[] = $linha;
+                    continue;
+                }
+
+                //quantidade e preco
+                if ($item == 4 || $item == 5) {
+
+                    $valores = explode(" ", $lines[$i]);
+                    
+                    foreach($valores as $valor){
+
+                        $valor = str_replace(",", ".", str_replace(".", "", $valor));
+
+                        $tipoValor = $this->tipoValor($valor);
+                        
+
+                        if ($tipoValor == "string" || ((float) $valor)==0) {
+                            continue;
+                        }
+                        
+                        echo "Item: $item = $valor ($tipoValor) = ".((float) $valor)."<br>" ;
+
+                        if ($tipoValor != "string" && ((float) $valor)!=0) {
+                            $itens[] = (float) $valor;
+                            $item++;
+                        }
+                        echo "Final Item: $item <br>" ;
+                        if($item == 6)
+                            break;
+
+                    }
+                    continue;
+                }
+
+                //total
+                if($item == 6){
+                    
+                    $valor = str_replace(",", ".", str_replace(".", "", $linha));
+                    $tipoValor = $this->tipoValor($valor);
+                    if($tipoValor!="string"){
+                        $itens[] = (float) $valor;
+                        $item++;
                         continue;
                     }
+
                 }
 
-                if ($item == 4) {
-
-                    $valores = explode(" ", $line);
-                    $quantidade = (int) $valores[0];
-                    unset($valores[0]);
-                    $precoStr = implode("", $valores);
-                    //echo "Preco Str : $precoStr <br>";
-                    $precoUs = str_replace(",", ".", str_replace(".", "", $precoStr));
-                    //echo "Preco US : $precoUs <br>";
-                    $preco = (float) $precoUs;
-                    if($preco == 0){
-                        //dd($precoUs);
-                    }
-                    $itens[] = $quantidade;
-                    $itens[] = $preco;
-                    $item++;
-                    continue;
-                }
-
-                if ($item == 5 ) {
-                    $total = str_replace(",", ".", str_replace(".", "", $linha));
-                    $itens[] = (float) $total;
-                    $item++;
-                    continue;
-                }
-
-                if ($item == 6) {
+                if ($item == 7) {
+                    
                     $op = substr($linha, 0, 1);
                     $itens[] = $op;
                     $item++;
-                    //dd($itens);
+                    
                 }
+                
                 //montar a ordem
-                if ($item == 7) {
-                    $strDetalheOrdem = "";
-                    foreach ($itens as $k => $v) {
-
-                        $strDetalheOrdem .= "Item $k -> $v <br>";
-
-                    }
-                    //echo $strDetalheOrdem;
-
-                    //dd($itens);
+                if ($item == 8) {
+                    
+                    
+                    
                     if (isset($itens[2]) && isset($itens[4]) && isset($itens[5]) && isset($itens[6])) {
 
-                        if($itens[5]==0){
-                            dd($itens);
-
-                        }
                         $ordens[] = [
                             'corretora_id' => $this->corretora->id,
                             'titulo' => isset($itens[0]) ? $itens[0] : '',
@@ -164,20 +177,20 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                             'total' => isset($itens[6]) ? $itens[6] : 0.0,
                             'corretagem' => 0.0,
                             'outras_despesas' => 0.0,
-                            'tipodespesa' => isset($itens[6]) ? $itens[6] : '',
+                            'tipodespesa' => isset($itens[7]) ? $itens[7] : '',
                             'origem' => 'ARQUIVO',
                         ];
+
+                        $linhaOrdem = false;
+                        $item = 0;
+                        $itens = [];
                     }
-
-                    $itens = [];
+                   
                 }
-
             }
-
         }
 
         return $ordens;
-
     }
 
     public function getDataPregao($lines)
@@ -186,7 +199,7 @@ class ImportarNotasBancoXpService extends ImportarNotasService
         $str = "";
         $valor = "";
 
-         dd($lines);
+        //dd($lines);
 
         foreach ($lines as $k => $line) {
 
@@ -211,14 +224,12 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                     $linha = $this->normalizaLinha($lines[$k + 1]);
                     $valor = $linha;
                 }
-
             }
         }
 
         //dd($valor);
 
         return $valor;
-
     }
 
     public function normalizaLinha($line)
@@ -257,23 +268,21 @@ class ImportarNotasBancoXpService extends ImportarNotasService
 
             if ($start == true) {
 
-                $numUs = str_replace(",",".",str_replace(".","",trim($linha)));
+                $numUs = str_replace(",", ".", str_replace(".", "", trim($linha)));
                 //echo "Numero $i - $linha<br>";
 
-                if(trim($linha)!="D" && is_numeric($numUs) == false ){
+                if (trim($linha) != "D" && is_numeric($numUs) == false) {
                     $itens[trim($linha)] = $valor;
                     $valor = 0;
                 }
                 if (is_numeric($numUs)) {
-                    $valor = $numUs+0;
+                    $valor = $numUs + 0;
                 }
-
             }
         }
 
         //dd($itens);
         return $itens;
-
     }
 
     public function obterOrdensDasNotas()
@@ -285,53 +294,58 @@ class ImportarNotasBancoXpService extends ImportarNotasService
             $strData = $nota['data'];
             $strDataUs = implode('-', array_reverse(explode('/', $strData)));
             $dataOrdemBanco = date('Y-m-d H:i:s', strtotime($strDataUs . ' 12:00:00'));
-
+            if ($dataOrdemBanco == "2019-05-31 12:00:00") {
+                dd($nota);
+            }
             $i = 1;
             foreach ($nota['ordens'] as $ordem) {
 
                 $tipo = "";
-                if(str_contains($ordem['ticker'], 'FII')){
+                if (str_contains($ordem['ticker'], 'FII')) {
 
-                    $ticker = str_replace("FII","",$ordem['ticker']);
-                    $ticker = str_replace("CI","",$ticker);
-                    $ticker = substr($ticker, (strlen($ticker)-6) , strlen($ticker));
+                    $ticker = str_replace("FII", "", $ordem['ticker']);
+                    $ticker = str_replace("CI", "", $ticker);
+                    $ticker = substr($ticker, (strlen($ticker) - 6), strlen($ticker));
                     $tipo = "FII";
+                } else {
 
-                }else{
-
-                    if(str_contains($ordem['ticker'], 'ON')){
-                        $ticker = str_replace("ON","",$ordem['ticker']);
+                    if (str_contains($ordem['ticker'], 'ON')) {
+                        $ticker = str_replace("ON", "", $ordem['ticker']);
                         $tipo = "ON";
                     }
 
-                    if(str_contains($ordem['ticker'], 'PN')){
+                    if (str_contains($ordem['ticker'], 'PN')) {
 
-                        $pos = strpos($ordem['ticker'],"PN");
-                        $afixo = substr($ordem['ticker'],$pos,strlen($ordem['ticker']));
+                        $pos = strpos($ordem['ticker'], "PN");
+                        $afixo = substr($ordem['ticker'], $pos, strlen($ordem['ticker']));
                         $tipo = $afixo;
-                        $ticker = str_replace($afixo,"",$ordem['ticker']);
+                        $ticker = str_replace($afixo, "", $ordem['ticker']);
                     }
 
-                    if(str_contains($ordem['ticker'], 'UNT')){
+                    if (str_contains($ordem['ticker'], 'UNT')) {
 
-                        $ticker = str_replace("UNT","",$ordem['ticker']);
+                        $ticker = str_replace("UNT", "", $ordem['ticker']);
                         $tipo = "UNT";
                     }
 
-                    $ticker = str_replace("S/A","",$ticker);
+                    $ticker = str_replace("S/A", "", $ticker);
                 }
 
 
                 $ativo = null;
-                if($tipo == "FII" ){
+                if ($tipo == "FII") {
                     $ativo = Ativos::where('ticker', $ticker)
-                        ->orWhere('xpimport',$ordem['ticker'])->first();
-                }else{
-                    $ativo = Ativos::where('nome', 'like' ,"$ticker%")
-                        ->orWhere('xpimport',$ordem['ticker'])->first();
+                        ->orWhere('xpimport', $ordem['ticker'])
+                        ->orWhere('xpimport', 'like', "%" . trim($ordem['ticker']) . "%")
+                        ->first();
+                } else {
+                    $ativo = Ativos::where('nome', 'like', "$ticker%")
+                        ->orWhere('xpimport', $ordem['ticker'])
+                        ->orWhere('xpimport', 'like', "%" . trim($ordem['ticker']) . "%")
+                        ->first();
                 }
 
-                //dd($ativo);
+
                 $data = date('Y-m-d H:i:s', strtotime($dataOrdemBanco . "+$i minutes"));
                 $i++;
 
@@ -339,8 +353,8 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                 if ($ativo == null) {
                     $categoria = $this->definirCategoria($ordem['ticker']);
                     //dd($nota, $tipo,$ticker,$ordem);
-                    $ativo = Ativos::create(['ticker' => $ticker, 'nome' => $ordem['nome'], 'setor' => '-', 'classe' => '-', 'categoria' => $categoria, 'cotacao' => 0.0, 'dataCotacao' => null, 'xp_import'=>'FIIBTLGBTLG11CI']);
-                }else{
+                    $ativo = Ativos::create(['ticker' => $ticker, 'nome' => $ordem['nome'], 'setor' => '-', 'classe' => '-', 'categoria' => $categoria, 'cotacao' => 0.0, 'dataCotacao' => null, 'xp_import' => 'FIIBTLGBTLG11CI']);
+                } else {
 
                     $ativo->xpimport = $ordem['ticker'];
                     $ativo->save();
@@ -355,10 +369,23 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                     'ativo_id' => $ativo->id, 'quantidade' => $quantidadeordem, 'preco' => $precoordem, 'despesas' => 0,
                     'total' => $totalordem, 'data' => $data, 'saldo' => $quantidadeordem, 'origem' => 'ARQUIVO', 'path' => $nota['path'],
                 ];
-
             }
+        }
+    }
 
+    public function tipoValor($valor)
+    {
+        if (is_numeric($valor)) {
+
+            if (str_contains($valor, ".")) {
+                $tipoValor = "float";
+            } else {
+                $tipoValor = "int";
+            }
+        } else {
+            $tipoValor = "string";
         }
 
+        return $tipoValor;
     }
 }

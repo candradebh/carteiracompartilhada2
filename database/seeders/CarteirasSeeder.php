@@ -26,6 +26,7 @@ class CarteirasSeeder extends Seeder
             ['user_id' => 2, 'nome' => 'Brasil Maria', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0, 'tipomoeda'=>'BRL'],
             ['user_id' => 3, 'nome' => 'Sena', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0,'tipomoeda'=>'BRL'],
             ['user_id' => 5, 'nome' => 'Vickin', 'descricao' => 'Brasil 1000 Grau', 'total' => 0.0,'tipomoeda'=>'BRL'],
+            ['user_id' => 6, 'nome' => 'Simone BR', 'descricao' => 'Simone Inter', 'total' => 0.0,'tipomoeda'=>'BRL'],
         ];
 
         DB::table('carteiras')->insert($carteiras);

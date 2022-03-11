@@ -56,6 +56,7 @@ abstract class ImportarNotasService
 
             $i = 1;
             foreach ($nota['ordens'] as $ordem) {
+                
 
                 $ativo = Ativos::where('ticker', $ordem['ticker'])->first();
                 $data = date('Y-m-d H:i:s', strtotime($dataOrdemBanco . "+$i minutes"));
