@@ -113,9 +113,9 @@ abstract class ImportarNotasService
     public function gravarOrdensBanco(){
 
         if (sizeof($this->ordens) > 0) {
-
+            dd($this->ordens);
             foreach ($this->ordens as $ordem) {
-                //dd($ordem);
+                
                 $ordemBanco = Ordens::where('ativo_id', $ordem['ativo_id'])
                     ->where('corretora_id', $ordem['corretora_id'])
                     ->where('quantidade', $ordem['quantidade'])

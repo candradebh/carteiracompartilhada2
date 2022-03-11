@@ -33,11 +33,12 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                     $lines = explode("\n", $page->getText());
                     $dataNota = $this->getDataPregao($lines);
 
-                    if ($dataNota == "31/05/2019") {
-                        $ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
-                        dd($ordensImportadas);
-                    }
-                    //$ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
+                    //if ($dataNota == "31/05/2019") {
+                        //$ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
+                        //dd($ordensImportadas);
+                   // }
+                    $ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
+
                     if ($p == (sizeof($pdf->getPages()) - 1)) {
                         $resumo = $this->getRodape($lines);
                     }
@@ -295,7 +296,7 @@ class ImportarNotasBancoXpService extends ImportarNotasService
             $strDataUs = implode('-', array_reverse(explode('/', $strData)));
             $dataOrdemBanco = date('Y-m-d H:i:s', strtotime($strDataUs . ' 12:00:00'));
             if ($dataOrdemBanco == "2019-05-31 12:00:00") {
-                dd($nota);
+                //dd($nota);
             }
             $i = 1;
             foreach ($nota['ordens'] as $ordem) {

@@ -333,9 +333,6 @@ class ImportarCorretagensController extends Controller
                 $stringOperacao .= $totalOrdemVenda . "<br>";
 
                 //preco medio da venda
-                if($ordem->quantidade==0){
-                    dd($ordem);
-                }
                 $stringOperacao .= "Preco medio da venda é  $totalOrdemVenda / $ordem->quantidade  = ";
                 $precoMedioVendaPorAcao = $totalOrdemVenda / $ordem->quantidade;
                 $stringOperacao .= $precoMedioVendaPorAcao . "<br>";
