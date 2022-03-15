@@ -24,14 +24,16 @@
                 <t-badge color="solid-blue">Form Section Area</t-badge>
             </div>
 
-            <t-input-group class="col-span-12 lg:col-span-6" label="Tipo de Importação" labelFor="tipo">
+            <t-input-group class="col-span-12 lg:col-span-6" label="Tipo de Importação" labelFor="tipo" >
                 <div class="inline-flex flex-wrap items-center gap-2">
                     <t-input-radio-button
-                        v-model="form.tipo"
+                        modelValue="form.tipo"
+                        value="todos"
                         :radius="3"
                         color="solid-green"
                         input-value="todos"
                         label="Todos"
+                        id="tipo"
                     >
                         <template #icon>
                             <t-x-icon class="w-5 h-5"/>
@@ -39,11 +41,13 @@
                     </t-input-radio-button>
 
                     <t-input-radio-button
-                        v-model="form.tipo"
+                        modelValue="form.tipo"
+                        value="arquivo"
                         :radius="3"
                         color="solid-red"
                         input-value="arquivo"
                         label="Arquivos"
+                        id="tipo"
                     >
                         <template #icon>
                             <t-x-icon class="w-5 h-5"/>

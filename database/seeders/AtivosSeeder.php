@@ -830,7 +830,7 @@ class AtivosSeeder extends Seeder
             ['ticker'=>'VIIA3','nome'=>'VIIA3 ON NM','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Ações', 'xpimport'=> ' ' ],
             ['ticker'=>'BOVV11','nome'=>'ITNOWIBOV3QM/Ut','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'ETF', 'xpimport'=> 'ITNOWIBOVCI' ],
             ['ticker'=>'CEOC11','nome'=>'CEOC11 CI ER','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
-            ['ticker'=>'EDGA11','nome'=>'EDGA1 1 CI','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
+            ['ticker'=>'EDGA11','nome'=>'EDGA1 1 CI','cnpj'=>'15.333.306/0001-37','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'ABCP11','nome'=>'FII ABC IMOB','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' FIIABCIMOBABCP11CI' ],
             ['ticker'=>'AEFI11','nome'=>'FII AESAPAR','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'AGCX11','nome'=>'FII AG CAIXA','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
@@ -938,7 +938,7 @@ class AtivosSeeder extends Seeder
             ['ticker'=>'SAAG11','nome'=>'FII SANT AGE','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'SAIC11B','nome'=>'FII SIA CORP','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'SCPF11','nome'=>'FII SCP','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
-            ['ticker'=>'SDIL11','nome'=>'FII SDI LOG','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
+            ['ticker'=>'SDIL11','nome'=>'FII SDI LOG','cnpj'=>'16.671.412/0001-93','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'SFND11','nome'=>'FII SAO FER','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'SHDP11B','nome'=>'FII SHOP PDP','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'SHPH11','nome'=>'FII HIGIENOP','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
@@ -976,13 +976,13 @@ class AtivosSeeder extends Seeder
             ['ticker'=>'MALL11','nome'=>'MALL1 1 CI','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'XPPR11','nome'=>'XPPR1 1 CI ER','cnpj'=>'30.654.849/0001-40','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'PVBI11','nome'=>'PVBI1 1 CI','cnpj'=>'35.652.102/0001-76','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
-            ['ticker'=>'KNSC11','nome'=>'KNSC11 CI ER','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
+            ['ticker'=>'KNSC11','nome'=>'KNSC11 CI ER','cnpj'=>'35.864.448/0001-38','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'HSML11','nome'=>'HSML1 1 CI','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'RBFF11','nome'=>'RBFF1 1 CI','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
             ['ticker'=>'TEPP11','nome'=>'TEPP1 1 CI','cnpj'=>'','setor'=>'-', 'classe'=>'-', 'categoria'=>'Fundos Imobiliários', 'xpimport'=> ' ' ],
 
             ];
-        echo "Numero ativos array: ".sizeof($data);
+        //echo "Numero ativos array: ".sizeof($data);
         DB::table('ativos')->insert($data);
 
     }

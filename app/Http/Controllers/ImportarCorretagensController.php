@@ -51,7 +51,9 @@ class ImportarCorretagensController extends Controller
         $carteiraid = $request->get('carteira_id');
         $corretora_id = $request->get('corretora_id');
         $tipoImportacao = $request->get('tipo');
-
+        if($tipoImportacao==null){
+            $tipoImportacao = "todos";
+        }
         $corretora = Corretoras::find($corretora_id);
         $nomeDiretorio = strtolower(str_replace(' ', '', $corretora->nome));
 
@@ -59,7 +61,7 @@ class ImportarCorretagensController extends Controller
         $notas = [];
         $ordens = [];
 
-
+        
         $importarOrdens = null;
         if ($corretora != null && $corretora->realizaimportacao == 1) {
 
@@ -72,20 +74,20 @@ class ImportarCorretagensController extends Controller
         } else {
             abort(403, "Não importamos notas de corretagem dessa corretora");
         }
-
+        
         //Reprocessar todos os arquivos de notas do usuario naquela corretora
         if (isset($tipoImportacao) && $tipoImportacao != null && $tipoImportacao == "todos") {
 
             //apagar as ordens importadas por arquivo para reimporta-las novamente
             DB::table('ordens')->where('carteira_id', $carteiraid)->where('corretora_id',$corretora_id)->where('origem', 'ARQUIVO')->delete();
-
+            
             
             //lê todosos arquivos do diretorio da corretora
             $importarOrdens->getNotasCorretagem();
             
             // lê o conteudos dos arquivos
             $importarOrdens->lerNotas();
-            //dd($importarOrdens);
+            
 
         } else {
 
