@@ -11,9 +11,9 @@ class ImportarNotasBancoXpService extends ImportarNotasService
 
     public function lerNotas()
     {
-
+        
         foreach ($this->files as $file) {
-
+            
             $path = base_path() . "\\storage\\app\\" . implode("\\", explode("/", $file));
 
             if (mime_content_type($path) == "application/pdf") {
@@ -38,7 +38,7 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                         //dd($ordensImportadas);
                    // }
                     $ordensImportadas = $this->getOrdens($lines, $ordensImportadas);
-
+                    //dd($ordensImportadas);    
                     if ($p == (sizeof($pdf->getPages()) - 1)) {
                         $resumo = $this->getRodape($lines);
                     }
@@ -69,7 +69,7 @@ class ImportarNotasBancoXpService extends ImportarNotasService
         for ($i = 0; $i < sizeof($lines); $i++) {
 
             $linha = $this->normalizaLinha($lines[$i]);
-            echo "<br>linha = ".$linha."";
+            echo "<br>linha = ".$linha." | ".$lines[$i];
 
             //encontrei a linha das ordens com valores    
             if ($linha == "1-BOVESPA") {
@@ -101,9 +101,18 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                     continue;
                 }
 
-                //NM ou EJ ou bla
+                //NM ou EJ ou bla - INDIFERENTE ESSA INFO
                 if ($item == 3) {
-                    $itens[] = $linha;
+                    $valores = explode(" ",$lines[$i]);
+                    $itens[] = $valores[0];
+                    if(sizeof($valores)>1){
+                        $tipoValor = $this->tipoValor($valores[1]); 
+                        //pode ser a quantidade
+                        if($tipoValor!="string"){
+                            $itens[]=$valores[1];
+                            $item++;
+                        }
+                    }
                     $item++;
                     continue;
                 }
@@ -162,8 +171,7 @@ class ImportarNotasBancoXpService extends ImportarNotasService
                 //montar a ordem
                 if ($item == 8) {
                     
-                    
-                    
+                   
                     if (isset($itens[2]) && isset($itens[4]) && isset($itens[5]) && isset($itens[6])) {
 
                         $ordens[] = [
@@ -300,7 +308,7 @@ class ImportarNotasBancoXpService extends ImportarNotasService
             }
             $i = 1;
             foreach ($nota['ordens'] as $ordem) {
-
+                $ticker = "";
                 $tipo = "";
                 if (str_contains($ordem['ticker'], 'FII')) {
 

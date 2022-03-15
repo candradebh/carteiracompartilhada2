@@ -107,6 +107,7 @@ class AtivosSeeder extends Seeder
             ['ticker'=>'BOBR4','nome'=>'Bombril PN','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Ações', 'xpimport'=> ' ' ],
             ['ticker'=>'BOEI34','nome'=>'Boeing DRN','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Ações', 'xpimport'=> ' ' ],
             ['ticker'=>'BONY34','nome'=>'BNY Mellon','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Ações', 'xpimport'=> ' ' ],
+            ['ticker'=>'BOVA11','nome'=>'Indice Brasil','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'ETF', 'xpimport'=> 'ISHARESBOVA' ],
             ['ticker'=>'BOXP34','nome'=>'Boston Prop DRN','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Ações', 'xpimport'=> ' ' ],
             ['ticker'=>'BPAC11','nome'=>'Btgp Banco UNT','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Ações', 'xpimport'=> ' ' ],
             ['ticker'=>'BPAC3','nome'=>'Btgp Banco ON','cnpj'=>'','setor'=>' ', 'classe'=>' ', 'categoria'=>'Ações', 'xpimport'=> ' ' ],

@@ -21,9 +21,9 @@ class CarteirasSeeder extends Seeder
 
         $carteiras = [
             ['user_id' => 1, 'nome' => 'Banco Inter', 'descricao' => 'Investimentos em ações', 'total' => 0.0,'tipomoeda'=>'BRL'],
+            ['user_id' => 2, 'nome' => 'Brasil Maria', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0, 'tipomoeda'=>'BRL'],
             ['user_id' => 1, 'nome' => 'XpInvestimentos', 'descricao' => 'Investimentos em FIIS', 'total' => 0.0,'tipomoeda'=>'BRL'],
             ['user_id' => 1, 'nome' => 'Gringa', 'descricao' => 'Investimentos nos EUA', 'total' => 0.0,'tipomoeda'=>'USD'],
-            ['user_id' => 2, 'nome' => 'Brasil Maria', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0, 'tipomoeda'=>'BRL'],
             ['user_id' => 3, 'nome' => 'Sena', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0,'tipomoeda'=>'BRL'],
             ['user_id' => 5, 'nome' => 'Vickin', 'descricao' => 'Brasil 1000 Grau', 'total' => 0.0,'tipomoeda'=>'BRL'],
             ['user_id' => 6, 'nome' => 'Simone BR', 'descricao' => 'Simone Inter', 'total' => 0.0,'tipomoeda'=>'BRL'],
@@ -244,6 +244,31 @@ class CarteirasSeeder extends Seeder
         $ativo = Ativos::where('ticker','BIDI4')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>100,'preco'=>16.11,'despesas'=>21.4,'total'=>1611, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-01-30 12:00:00' ) ),'saldo'=>100 ];
         $ativo = Ativos::where('ticker','GOAU4')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>100,'preco'=>9.47,'despesas'=>21.4,'total'=>947, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-01-30 12:00:00' ) ),'saldo'=>100 ];
         $ativo = Ativos::where('ticker','ENBR3')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>8,'preco'=>22.22,'despesas'=>21.4,'total'=>177.76, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-01-30 12:00:00' ) ),'saldo'=>8 ];
+        
+        //INSERI MANUALMENTE
+        $ativo = Ativos::where('ticker','BOVA11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>20,'preco'=>103.12,'despesas'=>3.33,'total'=>2062.40, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-21 12:00:00' ) ),'saldo'=>20 ];
+        $ativo = Ativos::where('ticker','BOVA11')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>20,'preco'=>105.08,'despesas'=>3.33,'total'=>2062.40, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-21 12:01:00' ) ),'saldo'=>20 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>30,'preco'=>67,'despesas'=>0,'total'=>2010, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-22 12:00:00' ) ),'saldo'=>30 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>50,'preco'=>66.56,'despesas'=>0,'total'=>3328.00, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-25 12:00:00' ) ),'saldo'=>50 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>30,'preco'=>66.56,'despesas'=>0,'total'=>1996.80, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-25 12:01:00' ) ),'saldo'=>30 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>20,'preco'=>64.43,'despesas'=>0,'total'=>1288.60, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-28 12:00:00' ) ),'saldo'=>20 ];
+        $ativo = Ativos::where('ticker','KNSC11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>1,'preco'=>97.70,'despesas'=>0,'total'=>97.70, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-16 12:00:00' ) ),'saldo'=>1 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>20,'preco'=>59.58,'despesas'=>0,'total'=>1191.60, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-23 12:00:00' ) ),'saldo'=>20 ];
+        //25/11
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>13,'preco'=>57.58,'despesas'=>0,'total'=>748.54, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-25 12:00:00' ) ),'saldo'=>13 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>1,'preco'=>57.65,'despesas'=>0,'total'=>57.65, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-25 12:01:00' ) ),'saldo'=>1 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>4,'preco'=>57.65,'despesas'=>0,'total'=>230.60, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-25 12:02:00' ) ),'saldo'=>4 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>1,'preco'=>57.65,'despesas'=>0,'total'=>57.65, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-25 12:03:00' ) ),'saldo'=>1 ];
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>1,'preco'=>57.65,'despesas'=>0,'total'=>57.65, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-11-25 12:04:00' ) ),'saldo'=>1 ];
+        //01/12
+        $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>70,'preco'=>59.54,'despesas'=>0,'total'=>4167.80, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-12-01 12:01:00' ) ),'saldo'=>70 ];
+        //14/12
+        $ativo = Ativos::where('ticker','EDGA11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>4,'preco'=>22.6,'despesas'=>0,'total'=>90.40, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-12-14 12:01:00' ) ),'saldo'=>4 ];
+        //21/12
+        $ativo = Ativos::where('ticker','EDGA11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>10,'preco'=>22.14,'despesas'=>0,'total'=>221.40, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-12-21 12:01:00' ) ),'saldo'=>10 ];
+        $ativo = Ativos::where('ticker','KNSC11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>1,'preco'=>99.17,'despesas'=>0,'total'=>99.17, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-12-21 12:01:00' ) ),'saldo'=>1 ];
+        //28/12
+        $ativo = Ativos::where('ticker','SDIL11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>1,'preco'=>89.87,'despesas'=>0,'total'=>89.87, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-12-28 12:01:00' ) ),'saldo'=>1 ];
 
 
         //manual PORQUE NÃO ACHEI ESSA NOTA E ESTAVA CONTABILIZANDO -7
