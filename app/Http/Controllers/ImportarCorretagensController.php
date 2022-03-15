@@ -42,8 +42,8 @@ class ImportarCorretagensController extends Controller
         ini_set('max_execution_time', 120);    
         
         // usando testes dados para importacao
-        //$carteiraid = 2; //$request->get('carteira_id');
-        //$corretora_id = 2;//$request->get('corretora_id');
+        //$carteiraid = 1; //$request->get('carteira_id');
+        //$corretora_id = 1;//$request->get('corretora_id');
         //$tipoImportacao = "todos";//$request->get('tipo');
 
 

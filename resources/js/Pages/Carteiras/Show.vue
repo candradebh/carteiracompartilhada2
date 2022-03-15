@@ -12,7 +12,7 @@
         <template #default>
             <!-- <t-component-color-selector @selected-color="tableColor = $event"/> -->
 
-            <t-table :content="carteiras.ativos" :header="tableHeader" :features="tableFeatures">
+            <t-table :content="ativos" :header="tableHeader" :features="tableFeatures">
                 <template #search>
                     <grid-section :col="12" :gap="2">
                         <!--Name-->
@@ -54,7 +54,7 @@ export default {
     name: "ShowCarteira",
     components: {
         TUserCircleIcon, TButton, GridSection, TInputText, TInputGroup, AppLayout, TTable, TAvatar, SshPre},
-    props: ['users','carteiras','usuario'],
+    props: ['users','carteiras','usuario','ativos'],
     setup() {
     /*Table States*/
     const tableHeader = reactive([

@@ -245,7 +245,7 @@ class CarteirasSeeder extends Seeder
         $ativo = Ativos::where('ticker','GOAU4')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>100,'preco'=>9.47,'despesas'=>21.4,'total'=>947, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-01-30 12:00:00' ) ),'saldo'=>100 ];
         $ativo = Ativos::where('ticker','ENBR3')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>8,'preco'=>22.22,'despesas'=>21.4,'total'=>177.76, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-01-30 12:00:00' ) ),'saldo'=>8 ];
         
-        //INSERI MANUALMENTE
+        //xp2021
         $ativo = Ativos::where('ticker','BOVA11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>20,'preco'=>103.12,'despesas'=>3.33,'total'=>2062.40, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-21 12:00:00' ) ),'saldo'=>20 ];
         $ativo = Ativos::where('ticker','BOVA11')->first();$ordens [] = ['tipoordem'=>'V','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>20,'preco'=>105.08,'despesas'=>3.33,'total'=>2062.40, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-21 12:01:00' ) ),'saldo'=>20 ];
         $ativo = Ativos::where('ticker','XPPR11')->first();$ordens [] = ['tipoordem'=>'C','carteira_id'=>1,'corretora_id'=>2,'ativo_id'=>$ativo->id,'quantidade'=>30,'preco'=>67,'despesas'=>0,'total'=>2010, 'data'=>date('Y-m-d H:i:s', strtotime( '2020-10-22 12:00:00' ) ),'saldo'=>30 ];
