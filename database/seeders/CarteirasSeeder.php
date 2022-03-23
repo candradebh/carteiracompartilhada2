@@ -24,9 +24,9 @@ class CarteirasSeeder extends Seeder
             ['user_id' => 2, 'nome' => 'Brasil Maria', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0, 'tipomoeda'=>'BRL'],
             ['user_id' => 1, 'nome' => 'XpInvestimentos', 'descricao' => 'Investimentos em FIIS', 'total' => 0.0,'tipomoeda'=>'BRL'],
             ['user_id' => 1, 'nome' => 'Gringa', 'descricao' => 'Investimentos nos EUA', 'total' => 0.0,'tipomoeda'=>'USD'],
-            ['user_id' => 3, 'nome' => 'Sena', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0,'tipomoeda'=>'BRL'],
-            ['user_id' => 5, 'nome' => 'Vickin', 'descricao' => 'Brasil 1000 Grau', 'total' => 0.0,'tipomoeda'=>'BRL'],
-            ['user_id' => 6, 'nome' => 'Simone BR', 'descricao' => 'Simone Inter', 'total' => 0.0,'tipomoeda'=>'BRL'],
+            ['user_id' => 5, 'nome' => 'Sena', 'descricao' => 'Investimentos no Brasil', 'total' => 0.0,'tipomoeda'=>'BRL'],
+            ['user_id' => 6, 'nome' => 'Vickin', 'descricao' => 'Brasil 1000 Grau', 'total' => 0.0,'tipomoeda'=>'BRL'],
+            ['user_id' => 7, 'nome' => 'Simone BR', 'descricao' => 'Simone Inter', 'total' => 0.0,'tipomoeda'=>'BRL'],
         ];
 
         DB::table('carteiras')->insert($carteiras);
@@ -285,6 +285,15 @@ class CarteirasSeeder extends Seeder
         $operacao = Operacoes::create(['ativo_id'=>$ativo->id,'tipooperacao'=>'split','proporcao'=>'1:8','valor_original'=>276,'valor_alterado'=>34.5,'data'=>'2019-08-06']);
         $ativo = Ativos::where('ticker','SQIA3')->first();
         $operacao = Operacoes::create(['ativo_id'=>$ativo->id,'tipooperacao'=>'split','proporcao'=>'1:4','valor_original'=>62,'valor_alterado'=>15.5,'data'=>'2019-10-01']);
+        $ativo = Ativos::where('ticker','CSNA3')->first();
+        $operacao = Operacoes::create(['ativo_id'=>$ativo->id,'tipooperacao'=>'split','proporcao'=>'1:4','valor_original'=>49.69,'valor_alterado'=>12.42,'data'=>'2021-05-06']);
+        $ativo = Ativos::where('ticker','MGLU3')->first();
+        $operacao = Operacoes::create(['ativo_id'=>$ativo->id,'tipooperacao'=>'split','proporcao'=>'1:4','valor_original'=>100.43,'valor_alterado'=>25.10,'data'=>'2020-10-14']);
+        $ativo = Ativos::where('ticker','PRIO3')->first();
+        $operacao = Operacoes::create(['ativo_id'=>$ativo->id,'tipooperacao'=>'split','proporcao'=>'1:5','valor_original'=>98.40,'valor_alterado'=>19.68,'data'=>'2021-05-06']);
+        $ativo = Ativos::where('ticker','WEGE3')->first();
+        $operacao = Operacoes::create(['ativo_id'=>$ativo->id,'tipooperacao'=>'split','proporcao'=>'1:2','valor_original'=>83.66,'valor_alterado'=>41.83,'data'=>'2021-04-27']);
+
 
         //operacao FUSAO
         $ativo = Ativos::where('ticker','BTOW3')->first();

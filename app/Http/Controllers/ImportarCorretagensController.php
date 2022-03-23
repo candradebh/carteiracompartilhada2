@@ -42,15 +42,15 @@ class ImportarCorretagensController extends Controller
         ini_set('max_execution_time', 120);    
         
         // usando testes dados para importacao
-        //$carteiraid = 1; //$request->get('carteira_id');
-        //$corretora_id = 1;//$request->get('corretora_id');
-        //$tipoImportacao = "todos";//$request->get('tipo');
+        $carteiraid = 5; //$request->get('carteira_id');
+        $corretora_id = 1;//$request->get('corretora_id');
+        $tipoImportacao = "todos";//$request->get('tipo');
 
 
         // deixe essa para prod
-        $carteiraid = $request->get('carteira_id');
-        $corretora_id = $request->get('corretora_id');
-        $tipoImportacao = $request->get('tipo');
+        //$carteiraid = $request->get('carteira_id');
+        //$corretora_id = $request->get('corretora_id');
+        //$tipoImportacao = $request->get('tipo');
         if($tipoImportacao==null){
             $tipoImportacao = "todos";
         }
@@ -61,12 +61,13 @@ class ImportarCorretagensController extends Controller
         $notas = [];
         $ordens = [];
 
-        
+        //dd($nomeDiretorio);
         $importarOrdens = null;
         if ($corretora != null && $corretora->realizaimportacao == 1) {
 
             if ($nomeDiretorio == "inter") {
                 $importarOrdens = new ImportarNotasBancoInterService (auth()->user(), $carteiraid, $corretora);
+                
             } elseif ($nomeDiretorio == "xpinvestimentos") {
                 $importarOrdens = new ImportarNotasBancoXpService(auth()->user(), $carteiraid, $corretora);
             }
@@ -161,7 +162,7 @@ class ImportarCorretagensController extends Controller
 
         // lê as ordens das notas lidas
         $importarOrdens->obterOrdensDasNotas();
-        
+        //dd($importarOrdens);
 
         // grava isso no banco de dados se não tiver gravado
         $importarOrdens->gravarOrdensBanco();

@@ -68,8 +68,8 @@ export default {
     setup() {
     /*Table States*/
     const tableHeader = reactive([
-      { id: "ticker", label: "Ativo", key: "ticker", align: "center",  simpleSearchable:true, status: true, sortable: true },
-      { id: "cnpj", label: "CNPJ", key: "cnpj", align: "left", simpleSearchable:true, status: true, sortable: true },
+      { id: "ticker", label: "Ativo", key: "ticker", align: "center",  status: true, sortable: false },
+      { id: "cnpj", label: "CNPJ", key: "cnpj", align: "left", simpleSearchable:, status: true, sortable: true },
       { id: "precomedio", label: "Preço Médio", key: "precomedio", align: "right",  status: true, sortable: true },
       { id: "quantidade", label: "Quantidade", key: "quantidade", align: "center", status: true, sortable: true },
       { id: "total", label: "ToTal", key: "total", align: "right", status: true, sortable: true }
